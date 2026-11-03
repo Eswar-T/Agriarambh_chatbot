@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GreenPlot · Community Hub — redesign sample</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ff:'DM Sans',sans-serif;--ffs:'Instrument Serif',serif;
+  --g1:#092E18;--g2:#0F4A28;--g3:#1A6B3A;--g4:#2D9B56;--g5:#4CAF7A;--g6:#A8D8B8;--g7:#E4F4EC;
+  --a2:#8A5200;--a3:#B87214;--a4:#E09830;--a6:#FAE4A8;--a7:#FDF5E0;
+  --r2:#C02828;--r5:#FDD0D0;
+  --b2:#1A5299;--b5:#D4E8FC;
+  --n1:#0D1509;--n2:#1C2E18;--n3:#3A5040;--n4:#6B8074;--n5:#9EB8A8;--n6:#C8D8CC;--n7:#E8F0EC;--n8:#F4F8F5;--n9:#FAFCFA;--white:#fff;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--float:0 6px 22px rgba(0,0,0,.12);
+}
+html,body{font-family:var(--ff);background:#0c1410;color:var(--n1);font-size:14px;line-height:1.5;padding:24px 12px}
+.wrap{max-width:760px;margin:0 auto;display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+.phone{width:300px;flex-shrink:0;background:#fff;border-radius:38px;border:9px solid var(--n2);overflow:hidden;box-shadow:var(--float);position:relative}
+.notch{height:28px;background:var(--n2);display:flex;align-items:center;justify-content:center}
+.notch-pill{width:88px;height:16px;background:var(--n1);border-radius:9px}
+.screen{height:600px;overflow-y:auto;background:var(--n8);scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+
+/* header */
+.hdr{background:linear-gradient(165deg,var(--g1),var(--g2) 55%,var(--g3));padding:14px 16px 16px;position:relative;overflow:hidden}
+.hdr-grid{position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(90deg,transparent 0 39px,#fff 39px 40px),repeating-linear-gradient(0deg,transparent 0 39px,#fff 39px 40px)}
+.hdr-row{position:relative;z-index:1;display:flex;align-items:center}
+.hdr-sub{font-size:10px;color:rgba(255,255,255,.55);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.hdr-title{font-family:var(--ffs);font-size:22px;color:#fff;line-height:1.1}
+.hdr-actions{margin-left:auto;display:flex;gap:7px}
+.h-btn{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+.h-btn i{color:#fff;font-size:17px}
+/* community stat strip */
+.cstat{position:relative;z-index:1;display:flex;margin-top:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:8px 4px}
+.cs{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.12)}
+.cs:last-child{border-right:none}
+.cs-v{font-size:14px;font-weight:800;color:#fff}
+.cs-l{font-size:8.5px;color:rgba(255,255,255,.55)}
+
+/* composer */
+.composer{margin:12px 14px 0;background:#fff;border:1px solid var(--n7);border-radius:14px;padding:11px 12px;box-shadow:var(--shadow)}
+.comp-top{display:flex;align-items:center;gap:9px}
+.av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.comp-input{flex:1;background:var(--n8);border:1px solid var(--n7);border-radius:20px;padding:8px 12px;font-size:11px;color:var(--n5)}
+.comp-actions{display:flex;gap:6px;margin-top:9px;border-top:1px solid var(--n8);padding-top:9px}
+.comp-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:9px;padding:7px 0;font-size:11px;font-weight:700}
+.comp-btn i{font-size:15px}
+
+/* category chips */
+.chips{display:flex;gap:7px;overflow-x:auto;padding:12px 14px 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;display:flex;align-items:center;gap:4px;border:1px solid var(--n6);background:#fff;border-radius:20px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--n4)}
+.chip.on{background:var(--g2);color:#fff;border-color:var(--g2)}
+
+/* learn strip */
+.sec{padding:14px 14px 0}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.sec-t{font-size:13px;font-weight:800;color:var(--n2);display:flex;align-items:center;gap:6px}
+.sec-t i{color:var(--g3);font-size:16px}
+.sec-link{font-size:11px;color:var(--g3);font-weight:700}
+.learn{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.learn::-webkit-scrollbar{display:none}
+.lc{flex-shrink:0;width:130px;background:#fff;border:1px solid var(--n7);border-radius:12px;overflow:hidden}
+.lc-img{height:64px;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:6px}
+.lc-tag{background:rgba(9,46,24,.8);color:#fff;font-size:8px;font-weight:700;padding:2px 6px;border-radius:8px}
+.lc-b{padding:8px 9px}
+.lc-t{font-size:11px;font-weight:700;color:var(--n2);line-height:1.3}
+.lc-m{font-size:9px;color:var(--n4);margin-top:3px;display:flex;align-items:center;gap:3px}
+
+/* feed post */
+.feed{padding:14px 14px 0}
+.post{background:#fff;border:1px solid var(--n7);border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:var(--shadow)}
+.p-head{display:flex;align-items:center;gap:9px;padding:11px 12px 9px}
+.p-name{font-size:12px;font-weight:700;color:var(--n2);display:flex;align-items:center;gap:4px}
+.p-verify{color:var(--b2);font-size:12px}
+.p-meta{font-size:10px;color:var(--n4)}
+.role{font-size:8px;font-weight:700;padding:1px 6px;border-radius:8px;background:var(--g7);color:var(--g2)}
+.role.owner{background:var(--a7);color:var(--a2)}
+.p-more{margin-left:auto;color:var(--n5)}
+.p-tag{display:inline-flex;align-items:center;gap:4px;margin:0 12px 8px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px}
+.p-text{font-size:12px;color:var(--n2);line-height:1.55;padding:0 12px 10px}
+.p-text b{color:var(--g2)}
+.p-media{height:170px;background-size:cover;background-position:center;position:relative}
+.p-media.grid2{height:120px;display:flex;gap:2px}
+.p-media.grid2 .g{flex:1;background-size:cover;background-position:center}
+.play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.play-btn{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.play-btn i{font-size:24px;color:var(--g2);margin-left:3px}
+.vid-dur{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:9px;font-weight:600;padding:2px 7px;border-radius:6px}
+.earn{position:absolute;left:8px;top:8px;background:rgba(15,74,40,.92);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;display:flex;align-items:center;gap:4px}
+.p-bar{display:flex;align-items:center;gap:16px;padding:9px 12px;border-top:1px solid var(--n8)}
+.p-act{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--n4)}
+.p-act i{font-size:16px}
+.p-act.liked{color:var(--r2)}
+.p-save{margin-left:auto;color:var(--n4)}
+.p-save i{font-size:17px}
+
+/* fab */
+.fab{position:absolute;right:14px;bottom:74px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--g3),var(--g4));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(15,74,40,.45);z-index:5}
+.fab i{color:#fff;font-size:26px}
+
+/* bottom nav */
+.bnav{position:sticky;bottom:0;display:flex;background:#fff;border-top:1px solid var(--n7);padding:8px 0 10px}
+.bn{flex:1;text-align:center}
+.bn i{font-size:20px;color:var(--n5)}
+.bn span{display:block;font-size:9px;color:var(--n4);margin-top:1px}
+.bn.on i{color:var(--g3)}
+.bn.on span{color:var(--g2);font-weight:600}
+
+/* spec */
+.spec{width:300px;flex-shrink:0;color:#cfe3d6}
+.spec h1{font-family:var(--ffs);font-size:24px;color:#fff;font-weight:400}
+.spec .tag{display:inline-block;font-size:10px;font-weight:600;color:var(--g6);background:rgba(77,175,122,.15);border:1px solid rgba(77,175,122,.3);border-radius:20px;padding:3px 10px;margin:8px 0 16px}
+.spec .blk{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.spec .blk-t{font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.spec .blk-t i{color:var(--g5);font-size:15px}
+.spec .blk p{font-size:11px;color:#9fb8a8;line-height:1.6}
+.spec .blk b{color:#cfe3d6;font-weight:600}
+.spec .strike{text-decoration:line-through;opacity:.6}
+.spec .note{font-size:10px;color:#6f8a7c;margin-top:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- PHONE -->
+  <div class="phone">
+    <div class="notch"><div class="notch-pill"></div></div>
+    <div class="screen">
+
+      <!-- HEADER -->
+      <div class="hdr">
+        <div class="hdr-grid"></div>
+        <div class="hdr-row">
+          <div>
+            <div class="hdr-sub">GreenPlot Community</div>
+            <div class="hdr-title">Kisan Community 🌱</div>
+          </div>
+          <div class="hdr-actions">
+            <div class="h-btn"><i class="ti ti-search"></i></div>
+            <div class="h-btn"><i class="ti ti-bell"></i></div>
+          </div>
+        </div>
+        <div class="cstat">
+          <div class="cs"><div class="cs-v">12.4k</div><div class="cs-l">Farmers</div></div>
+          <div class="cs"><div class="cs-v">3,210</div><div class="cs-l">Stories</div></div>
+          <div class="cs"><div class="cs-v">86</div><div class="cs-l">Tips today</div></div>
+          <div class="cs"><div class="cs-v">↑ 24%</div><div class="cs-l">This week</div></div>
+        </div>
+      </div>
+
+      <!-- COMPOSER -->
+      <div class="composer">
+        <div class="comp-top">
+          <div class="av" style="background:var(--g5);color:#fff">RK</div>
+          <div class="comp-input">Share a success story, tip or photo…</div>
+        </div>
+        <div class="comp-actions">
+          <div class="comp-btn" style="background:var(--g7);color:var(--g2)"><i class="ti ti-photo"></i>Photo</div>
+          <div class="comp-btn" style="background:var(--r5);color:var(--r2)"><i class="ti ti-video"></i>Video</div>
+          <div class="comp-btn" style="background:var(--a7);color:var(--a3)"><i class="ti ti-bulb"></i>Story / Tip</div>
+        </div>
+      </div>
+
+      <!-- CATEGORY CHIPS -->
+      <div class="chips">
+        <div class="chip on">All</div>
+        <div class="chip">🏆 Success</div>
+        <div class="chip">🪱 Vermicompost</div>
+        <div class="chip">🌿 Organic</div>
+        <div class="chip">💡 Tips</div>
+        <div class="chip">🐛 Pest control</div>
+        <div class="chip">❓ Questions</div>
+      </div>
+
+      <!-- LEARN & GROW -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-school"></i>Learn &amp; grow</div><div class="sec-link">All guides ›</div></div>
+        <div class="learn">
+          <div class="lc">
+            <div class="lc-img" style="background-image:url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=300')"><span class="lc-tag">🪱 Guide</span></div>
+            <div class="lc-b"><div class="lc-t">Vermicompost at home</div><div class="lc-m"><i class="ti ti-clock" style="font-size:10px"></i>5 min read</div></div>
+          </div>
+          <div class="lc">
+            <div class="lc-img" style="background-image:url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=300')"><span class="lc-tag">💧 Guide</span></div>
+            <div class="lc-b"><div class="lc-t">Drip irrigation basics</div><div class="lc-m"><i class="ti ti-clock" style="font-size:10px"></i>4 min read</div></div>
+          </div>
+          <div class="lc">
+            <div class="lc-img" style="background-image:url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=300')"><span class="lc-tag">🌿 Guide</span></div>
+            <div class="lc-b"><div class="lc-t">Organic pest control</div><div class="lc-m"><i class="ti ti-clock" style="font-size:10px"></i>6 min read</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEED -->
+      <div class="feed">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-news"></i>Community feed</div><div class="sec-link">Latest ▾</div></div>
+
+        <!-- Post 1: success story + image -->
+        <div class="post">
+          <div class="p-head">
+            <div class="av" style="background:var(--b5);color:var(--b2)">RK</div>
+            <div>
+              <div class="p-name">Ramesh Kumar <i class="ti ti-rosette-discount-check-filled p-verify"></i> <span class="role">Farmer</span></div>
+              <div class="p-meta">Purnea, Bihar · 2h ago</div>
+            </div>
+            <i class="ti ti-dots p-more"></i>
+          </div>
+          <div class="p-tag" style="background:var(--g7);color:var(--g2)">🏆 Success Story</div>
+          <div class="p-text">Doubled my <b>tomato yield</b> this season using drip irrigation + mulching. Spent ₹20k, earned ₹1.2L! Happy to guide anyone in my village. 🍅🙏</div>
+          <div class="p-media" style="background-image:url('https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=600')">
+            <div class="earn"><i class="ti ti-coin-rupee" style="font-size:12px"></i>₹1.2L earned</div>
+          </div>
+          <div class="p-bar">
+            <div class="p-act liked"><i class="ti ti-heart-filled"></i>124</div>
+            <div class="p-act"><i class="ti ti-message-circle"></i>18</div>
+            <div class="p-act"><i class="ti ti-share-3"></i>Share</div>
+            <div class="p-save"><i class="ti ti-bookmark"></i></div>
+          </div>
+        </div>
+
+        <!-- Post 2: vermicompost + video -->
+        <div class="post">
+          <div class="p-head">
+            <div class="av" style="background:var(--a7);color:var(--a3)">LB</div>
+            <div>
+              <div class="p-name">Lakshmi Bai <span class="role">Farmer</span></div>
+              <div class="p-meta">Dharwad, Karnataka · 5h ago</div>
+            </div>
+            <i class="ti ti-dots p-more"></i>
+          </div>
+          <div class="p-tag" style="background:#F0E6D2;color:var(--a2)">🪱 Vermicompost</div>
+          <div class="p-text">How I make <b>vermicompost</b> at home in 30 days — cuts my fertilizer cost by half. Full method in this video 👇</div>
+          <div class="p-media" style="background-image:url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600')">
+            <div class="play"><div class="play-btn"><i class="ti ti-player-play-filled"></i></div></div>
+            <div class="vid-dur">4:12</div>
+          </div>
+          <div class="p-bar">
+            <div class="p-act"><i class="ti ti-heart"></i>208</div>
+            <div class="p-act"><i class="ti ti-message-circle"></i>42</div>
+            <div class="p-act"><i class="ti ti-share-3"></i>Share</div>
+            <div class="p-save"><i class="ti ti-bookmark-filled" style="color:var(--g3)"></i></div>
+          </div>
+        </div>
+
+        <!-- Post 3: organic tip + 2-image grid -->
+        <div class="post">
+          <div class="p-head">
+            <div class="av" style="background:var(--g7);color:var(--g2)">AK</div>
+            <div>
+              <div class="p-name">Anil K. <span class="role owner">Owner</span></div>
+              <div class="p-meta">Hubli · Yesterday</div>
+            </div>
+            <i class="ti ti-dots p-more"></i>
+          </div>
+          <div class="p-tag" style="background:var(--g7);color:var(--g2)">🌿 Organic</div>
+          <div class="p-text">Neem oil + garlic spray kept my crop pest-free without chemicals. Before / after 👇</div>
+          <div class="p-media grid2">
+            <div class="g" style="background-image:url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300')"></div>
+            <div class="g" style="background-image:url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=300')"></div>
+          </div>
+          <div class="p-bar">
+            <div class="p-act"><i class="ti ti-heart"></i>76</div>
+            <div class="p-act"><i class="ti ti-message-circle"></i>11</div>
+            <div class="p-act"><i class="ti ti-share-3"></i>Share</div>
+            <div class="p-save"><i class="ti ti-bookmark"></i></div>
+          </div>
+        </div>
+
+        <!-- Post 4: question (text only) -->
+        <div class="post">
+          <div class="p-head">
+            <div class="av" style="background:var(--r5);color:var(--r2)">VR</div>
+            <div>
+              <div class="p-name">Vikram R. <span class="role">Farmer</span></div>
+              <div class="p-meta">Gadag · 1d ago</div>
+            </div>
+            <i class="ti ti-dots p-more"></i>
+          </div>
+          <div class="p-tag" style="background:var(--b5);color:var(--b2)">❓ Question</div>
+          <div class="p-text">Yellow spots on my chilli leaves 🌶 — is it a fungus or nutrient problem? Any organic fix? Please help 🙏</div>
+          <div class="p-bar">
+            <div class="p-act"><i class="ti ti-heart"></i>9</div>
+            <div class="p-act"><i class="ti ti-message-circle"></i>23 answers</div>
+            <div class="p-act"><i class="ti ti-share-3"></i>Share</div>
+            <div class="p-save"><i class="ti ti-bookmark"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fab"><i class="ti ti-plus"></i></div>
+
+      <!-- BOTTOM NAV -->
+      <div class="bnav">
+        <div class="bn"><i class="ti ti-home-2"></i><span>Home</span></div>
+        <div class="bn"><i class="ti ti-file-text"></i><span>Leases</span></div>
+        <div class="bn"><i class="ti ti-leaf"></i><span>Crops</span></div>
+        <div class="bn"><i class="ti ti-chart-bar"></i><span>Market</span></div>
+        <div class="bn on"><i class="ti ti-users"></i><span>Hub</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SPEC -->
+  <div class="spec">
+    <h1>Community Hub — redesign</h1>
+    <div class="tag">SAMPLE · for your approval</div>
+
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-trash"></i>Removed</div>
+      <p><span class="strike">Weather card</span> and <span class="strike">Mandi prices</span> — now covered by the redesigned Home + the Market module, so they're dropped from the Hub.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-pencil-plus"></i>Post composer</div>
+      <p>One-tap to share a <b>success story, tip or photo</b>. Quick buttons for <b>Photo</b>, <b>Video</b> and <b>Story/Tip</b> open the camera / gallery / video picker.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-filter"></i>Category filter</div>
+      <p>Success · Vermicompost · Organic · Tips · Pest control · Questions — tap to filter the feed.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-school"></i>Learn &amp; grow</div>
+      <p>Curated concept guides (Vermicompost, Drip irrigation, Organic pest control) — the "new concepts" you asked for, as bite-size cards.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-news"></i>Community feed</div>
+      <p>Rich post cards: author + role badge (Farmer/Owner), category tag, text, and <b>image / video / photo-grid</b> media. Like · comment · share · save. Success posts can show an <b>"₹ earned"</b> badge.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-users"></i>Shared by both roles</div>
+      <p>Same Hub for farmers &amp; owners; role badge shows who posted. Community stat strip up top adds social proof.</p>
+    </div>
+
+    <p class="note">When you approve, I'll build the RN screen with mock feed data, working <b>image/video upload</b> (react-native-image-picker is already installed), category filtering, like/save state, and a full create-post flow — all memoised &amp; virtualised like the Home screens. Reply with tweaks or say <b>“build it”</b>.</p>
+  </div>
+
+</div>
+</body>
+</html>

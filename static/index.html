@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GreenPlot Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,560&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div>
+      <p class="mark">GreenPlot</p>
+      <h1 id="title">ಅಪ್ಲಿಕೇಶನ್ ಸಹಾಯ</h1>
+    </div>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" id="lang-kn" class="lang active">ಕನ್ನಡ</button>
+      <button type="button" id="lang-en" class="lang">English</button>
+    </div>
+  </header>
+
+  <p id="banner" class="banner" hidden></p>
+
+  <main id="log" class="log" aria-live="polite">
+    <section class="welcome" id="welcome">
+      <h2 id="welcome-title">GreenPlot ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು?</h2>
+      <p id="welcome-copy">ಖಾತೆ, ಜಮೀನು, ಗುತ್ತಿಗೆ, ಬೆಳೆ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಬಗ್ಗೆ ಕೇಳಿ. ಉತ್ತರಗಳು ಅಪ್ಲಿಕೇಶನ್ ಮಾರ್ಗದರ್ಶಿಯಿಂದ ಬರುತ್ತವೆ.</p>
+      <div id="quick" class="quick"></div>
+    </section>
+  </main>
+
+  <form id="form" class="composer">
+    <input id="input" name="message" autocomplete="off" maxlength="2000" />
+    <button type="submit" id="send">ಕಳುಹಿಸಿ</button>
+  </form>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

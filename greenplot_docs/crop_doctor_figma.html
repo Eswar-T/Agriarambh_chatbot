@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GreenPlot · Crop Doctor — design sample</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ff:'DM Sans',sans-serif;--ffs:'Instrument Serif',serif;
+  --g1:#092E18;--g2:#0F4A28;--g3:#1A6B3A;--g4:#2D9B56;--g5:#4CAF7A;--g6:#A8D8B8;--g7:#E4F4EC;
+  --a2:#8A5200;--a3:#B87214;--a4:#E09830;--a6:#FAE4A8;--a7:#FDF5E0;
+  --r1:#6B1212;--r2:#C02828;--r3:#E04848;--r4:#F47A7A;--r5:#FDD0D0;
+  --b2:#1A5299;--b5:#D4E8FC;
+  --n1:#0D1509;--n2:#1C2E18;--n3:#3A5040;--n4:#6B8074;--n5:#9EB8A8;--n6:#C8D8CC;--n7:#E8F0EC;--n8:#F4F8F5;--n9:#FAFCFA;--white:#fff;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--float:0 6px 22px rgba(0,0,0,.12);
+}
+html,body{font-family:var(--ff);background:#0c1410;color:var(--n1);font-size:14px;line-height:1.5;padding:24px 12px}
+.wrap{max-width:980px;margin:0 auto;display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+.phone{width:300px;flex-shrink:0;background:#fff;border-radius:38px;border:9px solid var(--n2);overflow:hidden;box-shadow:var(--float);position:relative}
+.notch{height:28px;background:var(--n2);display:flex;align-items:center;justify-content:center}
+.notch-pill{width:88px;height:16px;background:var(--n1);border-radius:9px}
+.screen{height:600px;overflow-y:auto;background:var(--n8);scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.plabel{text-align:center;color:#9fb8a8;font-size:11px;font-weight:600;margin-top:10px}
+.ptag{display:inline-block;background:rgba(77,175,122,.15);color:var(--g6);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:3px}
+
+/* header */
+.hdr{background:linear-gradient(165deg,var(--g1),var(--g2) 55%,var(--g3));padding:14px 16px 16px;position:relative;overflow:hidden}
+.hdr-grid{position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(90deg,transparent 0 39px,#fff 39px 40px),repeating-linear-gradient(0deg,transparent 0 39px,#fff 39px 40px)}
+.hdr-row{position:relative;z-index:1;display:flex;align-items:center;gap:9px}
+.hbtn{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+.hbtn i{color:#fff;font-size:17px}
+.hdr-sub{font-size:10px;color:rgba(255,255,255,.55);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.hdr-title{font-family:var(--ffs);font-size:21px;color:#fff;line-height:1.1}
+
+/* sections */
+.sec{padding:14px 14px 0}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.sec-t{font-size:13px;font-weight:800;color:var(--n2);display:flex;align-items:center;gap:6px}
+.sec-t i{color:var(--g3);font-size:16px}
+.sec-link{font-size:11px;color:var(--g3);font-weight:700}
+.card{background:#fff;border:1px solid var(--n7);border-radius:14px;box-shadow:var(--shadow)}
+
+/* capture */
+.capture{margin:14px 14px 0;border:2px dashed var(--g5);border-radius:18px;background:linear-gradient(180deg,#fff,var(--g7));padding:22px 16px;text-align:center}
+.cap-ic{width:64px;height:64px;border-radius:20px;margin:0 auto 10px;background:var(--g3);display:flex;align-items:center;justify-content:center}
+.cap-ic i{font-size:32px;color:#fff}
+.cap-t{font-size:14px;font-weight:800;color:var(--g1)}
+.cap-s{font-size:11px;color:var(--n4);margin-top:3px}
+.cap-btns{display:flex;gap:8px;margin-top:14px}
+.cap-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;padding:11px 0;font-size:12px;font-weight:700}
+.cap-primary{background:var(--g2);color:#fff}
+.cap-ghost{background:#fff;border:1px solid var(--g5);color:var(--g2)}
+
+/* tips */
+.tip-card{margin:12px 14px 0;background:var(--b5);border:1px solid #82B4F0;border-radius:12px;padding:11px 13px}
+.tip-t{font-size:11px;font-weight:800;color:#0B2D5C;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.tip-row{display:flex;align-items:center;gap:7px;font-size:10.5px;color:var(--b2);margin-bottom:4px}
+.tip-row i{font-size:13px}
+
+/* common diseases */
+.dis-strip{display:flex;gap:9px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.dis-strip::-webkit-scrollbar{display:none}
+.dis{flex-shrink:0;width:118px;background:#fff;border:1px solid var(--n7);border-radius:12px;overflow:hidden}
+.dis-img{height:64px;background-size:cover;background-position:center}
+.dis-b{padding:8px 9px}
+.dis-n{font-size:11px;font-weight:700;color:var(--n2)}
+.dis-c{font-size:9px;color:var(--n4);margin-top:1px}
+
+/* recent scans */
+.scan-row{display:flex;align-items:center;gap:11px;padding:10px 12px;border-bottom:1px solid var(--n8)}
+.scan-row:last-child{border-bottom:none}
+.scan-img{width:42px;height:42px;border-radius:10px;background-size:cover;background-position:center;flex-shrink:0}
+.scan-n{font-size:12px;font-weight:700;color:var(--n2)}
+.scan-d{font-size:10px;color:var(--n4)}
+.scan-badge{margin-left:auto;font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px}
+
+/* ── RESULT SCREEN ── */
+.res-photo{height:170px;background-size:cover;background-position:center;position:relative}
+.res-back{position:absolute;left:12px;top:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+.res-back i{color:#fff;font-size:18px}
+.scan-frame{position:absolute;inset:30px;border:2px solid rgba(255,255,255,.6);border-radius:14px}
+.scan-corner{position:absolute;width:18px;height:18px;border:3px solid var(--g5)}
+.diag{margin:-26px 14px 0;position:relative;z-index:2;background:#fff;border:1px solid var(--n7);border-radius:16px;box-shadow:var(--float);padding:14px}
+.diag-top{display:flex;align-items:flex-start;gap:10px}
+.ai-pill{background:linear-gradient(135deg,#EDE8FD,#E4EEFE);border:1px solid #C8BAF8;border-radius:8px;padding:2px 8px;font-size:9px;font-weight:700;color:#4B2EA8;display:inline-flex;align-items:center;gap:3px}
+.diag-name{font-family:var(--ffs);font-size:20px;color:var(--g1);line-height:1.1;margin-top:6px}
+.diag-sci{font-size:10px;color:var(--n4);font-style:italic}
+.conf{margin-left:auto;text-align:center;flex-shrink:0}
+.conf-ring{width:54px;height:54px;border-radius:50%;background:conic-gradient(var(--g4) 92%,var(--n7) 0);display:flex;align-items:center;justify-content:center}
+.conf-inner{width:42px;height:42px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.conf-v{font-size:14px;font-weight:800;color:var(--g2)}
+.conf-l{font-size:7px;color:var(--n4)}
+.sev{display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:11px;border-top:1px solid var(--n8)}
+.sev-l{font-size:11px;font-weight:600;color:var(--n3)}
+.sev-bar{flex:1;height:7px;background:var(--n7);border-radius:4px;overflow:hidden}
+.sev-fill{height:7px;border-radius:4px;background:linear-gradient(90deg,var(--a4),var(--r3));width:58%}
+.sev-tag{font-size:10px;font-weight:800;color:var(--a2)}
+
+.block{margin:12px 14px 0}
+.block-t{font-size:12px;font-weight:800;color:var(--n2);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.cause{background:var(--a7);border:1px solid var(--a6);border-radius:12px;padding:11px 13px;font-size:11px;color:var(--a2);line-height:1.55}
+
+/* treatment cards */
+.treat{border-radius:12px;border:1px solid;padding:12px;margin-bottom:9px}
+.treat-h{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.treat-h i{font-size:16px}
+.treat-tag{font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;margin-left:auto}
+.treat-name{font-size:12px;font-weight:700;color:var(--n2)}
+.treat-txt{font-size:11px;color:var(--n3);line-height:1.5;margin:5px 0 9px}
+.treat-buy{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--n7);border-radius:10px;padding:8px 11px}
+.treat-prod{font-size:11px;font-weight:700;color:var(--n2)}
+.treat-prod span{font-size:10px;font-weight:500;color:var(--n4)}
+.buy-btn{background:var(--g2);color:#fff;font-size:11px;font-weight:800;padding:6px 13px;border-radius:20px;display:flex;align-items:center;gap:4px}
+
+/* prevention */
+.prev-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px}
+.prev-row i{color:var(--g3);font-size:15px;margin-top:1px}
+.prev-row span{font-size:11px;color:var(--n3);line-height:1.5;flex:1}
+
+/* bottom actions */
+.res-actions{display:flex;gap:8px;padding:14px}
+.ra{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;padding:11px 0;font-size:11px;font-weight:700}
+
+/* bottom nav */
+.bnav{position:sticky;bottom:0;display:flex;background:#fff;border-top:1px solid var(--n7);padding:8px 0 10px}
+.bn{flex:1;text-align:center}
+.bn i{font-size:20px;color:var(--n5)}
+.bn span{display:block;font-size:9px;color:var(--n4);margin-top:1px}
+.bn.on i{color:var(--g3)}
+.bn.on span{color:var(--g2);font-weight:600}
+
+/* spec */
+.spec{width:300px;flex-shrink:0;color:#cfe3d6}
+.spec h1{font-family:var(--ffs);font-size:24px;color:#fff;font-weight:400}
+.spec .tag{display:inline-block;font-size:10px;font-weight:600;color:var(--g6);background:rgba(77,175,122,.15);border:1px solid rgba(77,175,122,.3);border-radius:20px;padding:3px 10px;margin:8px 0 16px}
+.spec .blk{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.spec .blk-t{font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.spec .blk-t i{color:var(--g5);font-size:15px}
+.spec .blk p{font-size:11px;color:#9fb8a8;line-height:1.6}
+.spec .blk b{color:#cfe3d6;font-weight:600}
+.spec .note{font-size:10px;color:#6f8a7c;margin-top:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ───────── PHONE 1 · SCAN ───────── -->
+  <div>
+  <div class="phone">
+    <div class="notch"><div class="notch-pill"></div></div>
+    <div class="screen">
+      <div class="hdr">
+        <div class="hdr-grid"></div>
+        <div class="hdr-row">
+          <div class="hbtn"><i class="ti ti-arrow-left"></i></div>
+          <div>
+            <div class="hdr-sub">AI · Plant health</div>
+            <div class="hdr-title">Crop Doctor 🔬</div>
+          </div>
+          <div class="hbtn" style="margin-left:auto"><i class="ti ti-history"></i></div>
+        </div>
+      </div>
+
+      <!-- capture -->
+      <div class="capture">
+        <div class="cap-ic"><i class="ti ti-camera"></i></div>
+        <div class="cap-t">Scan a sick plant</div>
+        <div class="cap-s">Take a clear photo of the affected leaf or fruit and get an instant AI diagnosis.</div>
+        <div class="cap-btns">
+          <div class="cap-btn cap-primary"><i class="ti ti-camera"></i>Camera</div>
+          <div class="cap-btn cap-ghost"><i class="ti ti-photo"></i>Gallery</div>
+        </div>
+      </div>
+
+      <!-- photo tips -->
+      <div class="tip-card">
+        <div class="tip-t"><i class="ti ti-bulb"></i>For best results</div>
+        <div class="tip-row"><i class="ti ti-zoom-in"></i>Close-up of the affected spot</div>
+        <div class="tip-row"><i class="ti ti-sun"></i>Use daylight, avoid shadows</div>
+        <div class="tip-row"><i class="ti ti-focus-2"></i>Keep the leaf in focus</div>
+      </div>
+
+      <!-- common this season -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-bug"></i>Common this season</div><div class="sec-link">All ›</div></div>
+        <div class="dis-strip">
+          <div class="dis"><div class="dis-img" style="background-image:url('https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=300')"></div><div class="dis-b"><div class="dis-n">Early Blight</div><div class="dis-c">🍅 Tomato</div></div></div>
+          <div class="dis"><div class="dis-img" style="background-image:url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300')"></div><div class="dis-b"><div class="dis-n">Leaf Curl</div><div class="dis-c">🌶 Chilli</div></div></div>
+          <div class="dis"><div class="dis-img" style="background-image:url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300')"></div><div class="dis-b"><div class="dis-n">Rust</div><div class="dis-c">🌾 Wheat</div></div></div>
+        </div>
+      </div>
+
+      <!-- recent scans -->
+      <div class="sec" style="padding-bottom:16px">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-clock"></i>Your recent scans</div></div>
+        <div class="card">
+          <div class="scan-row">
+            <div class="scan-img" style="background-image:url('https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=200')"></div>
+            <div><div class="scan-n">Tomato · Early Blight</div><div class="scan-d">2 days ago · 92% match</div></div>
+            <div class="scan-badge" style="background:var(--a7);color:var(--a2)">Treated</div>
+          </div>
+          <div class="scan-row">
+            <div class="scan-img" style="background-image:url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=200')"></div>
+            <div><div class="scan-n">Chilli · Healthy</div><div class="scan-d">5 days ago · 98% match</div></div>
+            <div class="scan-badge" style="background:var(--g7);color:var(--g2)">Healthy</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bnav">
+        <div class="bn"><i class="ti ti-home-2"></i><span>Home</span></div>
+        <div class="bn"><i class="ti ti-leaf"></i><span>Crops</span></div>
+        <div class="bn on"><i class="ti ti-stethoscope"></i><span>Doctor</span></div>
+        <div class="bn"><i class="ti ti-chart-bar"></i><span>Market</span></div>
+        <div class="bn"><i class="ti ti-users"></i><span>Hub</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="plabel">Screen 1 — Scan<br/><span class="ptag">Capture entry</span></div>
+  </div>
+
+  <!-- ───────── PHONE 2 · DIAGNOSIS ───────── -->
+  <div>
+  <div class="phone">
+    <div class="notch"><div class="notch-pill"></div></div>
+    <div class="screen">
+      <!-- photo with scan frame -->
+      <div class="res-photo" style="background-image:url('https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=600')">
+        <div class="res-back"><i class="ti ti-arrow-left"></i></div>
+        <div class="scan-frame">
+          <div class="scan-corner" style="top:-2px;left:-2px;border-right:none;border-bottom:none;border-radius:14px 0 0 0"></div>
+          <div class="scan-corner" style="top:-2px;right:-2px;border-left:none;border-bottom:none;border-radius:0 14px 0 0"></div>
+          <div class="scan-corner" style="bottom:-2px;left:-2px;border-right:none;border-top:none;border-radius:0 0 0 14px"></div>
+          <div class="scan-corner" style="bottom:-2px;right:-2px;border-left:none;border-top:none;border-radius:0 0 14px 0"></div>
+        </div>
+      </div>
+
+      <!-- diagnosis card -->
+      <div class="diag">
+        <div class="diag-top">
+          <div>
+            <div class="ai-pill"><i class="ti ti-sparkles" style="font-size:10px"></i>AI DIAGNOSIS</div>
+            <div class="diag-name">Tomato Early<br/>Blight</div>
+            <div class="diag-sci">Alternaria solani · fungal disease</div>
+          </div>
+          <div class="conf">
+            <div class="conf-ring"><div class="conf-inner"><div class="conf-v">92%</div><div class="conf-l">match</div></div></div>
+          </div>
+        </div>
+        <div class="sev">
+          <span class="sev-l">Severity</span>
+          <div class="sev-bar"><div class="sev-fill"></div></div>
+          <span class="sev-tag">Moderate</span>
+        </div>
+      </div>
+
+      <!-- cause -->
+      <div class="block">
+        <div class="block-t"><i class="ti ti-help-circle" style="color:var(--a3)"></i>Why it happened</div>
+        <div class="cause">A fungus that spreads in warm, humid weather and splashing water. Older leaves get dark brown spots with rings, then yellow and drop. Spreads fast if untreated.</div>
+      </div>
+
+      <!-- treatment -->
+      <div class="block">
+        <div class="block-t"><i class="ti ti-medical-cross" style="color:var(--g3)"></i>Recommended treatment</div>
+
+        <div class="treat" style="background:var(--g7);border-color:var(--g6)">
+          <div class="treat-h"><i class="ti ti-leaf" style="color:var(--g2)"></i><span class="treat-name">Organic first</span><span class="treat-tag" style="background:var(--g4);color:#fff">SAFE</span></div>
+          <div class="treat-txt">Remove affected leaves. Spray neem oil (5ml/L) every 5–7 days. Improve spacing for airflow.</div>
+          <div class="treat-buy"><div class="treat-prod">Neem Oil 250ml <span>· ₹180</span></div><div class="buy-btn"><i class="ti ti-shopping-cart" style="font-size:12px"></i>Buy</div></div>
+        </div>
+
+        <div class="treat" style="background:#fff;border-color:var(--n7)">
+          <div class="treat-h"><i class="ti ti-flask" style="color:var(--b2)"></i><span class="treat-name">Chemical (if severe)</span><span class="treat-tag" style="background:var(--a4);color:#fff">USE CARE</span></div>
+          <div class="treat-txt">Spray Mancozeb 75% WP (2.5g/L) or Chlorothalonil. Repeat after 10 days. Follow label dose.</div>
+          <div class="treat-buy"><div class="treat-prod">Mancozeb 500g <span>· ₹240</span></div><div class="buy-btn"><i class="ti ti-shopping-cart" style="font-size:12px"></i>Buy</div></div>
+        </div>
+      </div>
+
+      <!-- prevention -->
+      <div class="block" style="padding-bottom:4px">
+        <div class="block-t"><i class="ti ti-shield-check" style="color:var(--g3)"></i>Prevent next time</div>
+        <div class="prev-row"><i class="ti ti-rotate"></i><span>Rotate crops — don't plant tomato in the same spot yearly.</span></div>
+        <div class="prev-row"><i class="ti ti-droplet"></i><span>Water at the base, not on leaves; water in the morning.</span></div>
+        <div class="prev-row"><i class="ti ti-plant"></i><span>Use mulch to stop soil splashing onto leaves.</span></div>
+      </div>
+
+      <!-- actions -->
+      <div class="res-actions">
+        <div class="ra" style="background:var(--g7);color:var(--g2)"><i class="ti ti-users"></i>Ask community</div>
+        <div class="ra" style="background:var(--g2);color:#fff"><i class="ti ti-headset"></i>Talk to expert</div>
+      </div>
+    </div>
+  </div>
+  <div class="plabel">Screen 2 — Diagnosis result<br/><span class="ptag">The wow moment</span></div>
+  </div>
+
+  <!-- SPEC -->
+  <div class="spec">
+    <h1>Crop Doctor</h1>
+    <div class="tag">SAMPLE · for your approval</div>
+
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-camera"></i>Snap → diagnose</div>
+      <p>Farmer photographs a sick leaf (camera or gallery — <b>image-picker already installed</b>). AI returns the disease, a <b>confidence %</b> and severity.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-medical-cross"></i>Actionable treatment</div>
+      <p><b>Organic-first</b> remedy, then a chemical option if severe — in plain language, like the Soil report.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-shopping-cart"></i>Buy the cure (revenue)</div>
+      <p>Each remedy has a <b>Buy</b> button → the Input Marketplace. This is the monetisation hook — you diagnose, then sell the fix.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-history"></i>Scan history + season alerts</div>
+      <p>Past scans saved per farm, plus "common this season" cards — keeps farmers coming back.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-users"></i>Loops into your app</div>
+      <p>"Ask community" posts the scan to the <b>Hub</b>; "Talk to expert" → AI Assistant. Answers the chilli question that's already in your feed.</p>
+    </div>
+
+    <p class="note">Build plan: a new Crop Doctor screen + result screen, mock AI service (returns a diagnosis from a small disease library so it's demo-stable & offline), camera/gallery capture, scan history, and "Buy" wired to a marketplace stub. Same memoised/typed architecture as the rest. Reply with tweaks or say <b>“build it”</b>.</p>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GreenPlot · Kisan Mitra AI — design sample</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ff:'DM Sans','Noto Sans Devanagari',sans-serif;--ffs:'Instrument Serif',serif;
+  --g1:#092E18;--g2:#0F4A28;--g3:#1A6B3A;--g4:#2D9B56;--g5:#4CAF7A;--g6:#A8D8B8;--g7:#E4F4EC;
+  --a2:#8A5200;--a3:#B87214;--a4:#E09830;--a6:#FAE4A8;--a7:#FDF5E0;
+  --r2:#C02828;--r5:#FDD0D0;--b2:#1A5299;--b5:#D4E8FC;
+  --n1:#0D1509;--n2:#1C2E18;--n3:#3A5040;--n4:#6B8074;--n5:#9EB8A8;--n6:#C8D8CC;--n7:#E8F0EC;--n8:#F4F8F5;--n9:#FAFCFA;--white:#fff;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--float:0 6px 22px rgba(0,0,0,.12);
+}
+html,body{font-family:var(--ff);background:#0c1410;color:var(--n1);font-size:14px;line-height:1.5;padding:24px 12px}
+.wrap{max-width:980px;margin:0 auto;display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+.phone{width:300px;flex-shrink:0;background:#fff;border-radius:38px;border:9px solid var(--n2);overflow:hidden;box-shadow:var(--float);position:relative}
+.notch{height:28px;background:var(--n2);display:flex;align-items:center;justify-content:center}
+.notch-pill{width:88px;height:16px;background:var(--n1);border-radius:9px}
+.screen{height:600px;overflow-y:auto;background:var(--n8);scrollbar-width:none;display:flex;flex-direction:column}
+.screen::-webkit-scrollbar{display:none}
+.plabel{text-align:center;color:#9fb8a8;font-size:11px;font-weight:600;margin-top:10px}
+.ptag{display:inline-block;background:rgba(77,175,122,.15);color:var(--g6);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:3px}
+
+/* header */
+.hdr{background:linear-gradient(165deg,var(--g1),var(--g2) 55%,var(--g3));padding:12px 14px;position:relative;overflow:hidden;flex-shrink:0}
+.hdr-grid{position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(90deg,transparent 0 39px,#fff 39px 40px),repeating-linear-gradient(0deg,transparent 0 39px,#fff 39px 40px)}
+.hdr-row{position:relative;z-index:1;display:flex;align-items:center;gap:9px}
+.bot-av{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--g4),var(--g5));display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid rgba(255,255,255,.25);position:relative}
+.online{position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;border-radius:50%;background:#4ADE80;border:2px solid var(--g2)}
+.bot-name{font-family:var(--ffs);font-size:18px;color:#fff;line-height:1}
+.bot-stat{font-size:10px;color:#A8E6C0;display:flex;align-items:center;gap:4px;margin-top:2px}
+.lang{margin-left:auto;display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:5px 10px}
+.lang i{color:#fff;font-size:13px}
+.lang span{color:#fff;font-size:11px;font-weight:700}
+
+/* chat area */
+.chat{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;scrollbar-width:none}
+.chat::-webkit-scrollbar{display:none}
+
+/* welcome hero */
+.welcome{text-align:center;padding:14px 6px 4px}
+.welcome-av{width:64px;height:64px;border-radius:20px;margin:0 auto 10px;background:linear-gradient(135deg,var(--g3),var(--g5));display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 8px 20px rgba(15,74,40,.35)}
+.welcome-h{font-family:var(--ffs);font-size:22px;color:var(--g1);line-height:1.15}
+.welcome-s{font-size:12px;color:var(--n4);margin-top:5px;line-height:1.5}
+.dev{font-family:'Noto Sans Devanagari',sans-serif}
+
+/* quick start grid */
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:14px 14px 0}
+.qg{background:#fff;border:1px solid var(--n7);border-radius:14px;padding:12px;box-shadow:var(--shadow)}
+.qg-ic{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:7px}
+.qg-t{font-size:12px;font-weight:700;color:var(--n2)}
+.qg-s{font-size:9.5px;color:var(--n4);margin-top:1px}
+
+.voice-cta{margin:14px 14px 0;background:var(--g1);border-radius:14px;padding:13px 14px;display:flex;align-items:center;gap:11px}
+.voice-ic{width:42px;height:42px;border-radius:50%;background:rgba(77,175,122,.22);border:1px solid rgba(77,175,122,.4);display:flex;align-items:center;justify-content:center}
+.voice-ic i{color:#A8E6C0;font-size:20px}
+.voice-t{font-size:12px;font-weight:700;color:#fff}
+.voice-s{font-size:10px;color:rgba(255,255,255,.6);margin-top:1px}
+
+/* chat bubbles */
+.msg{max-width:84%;display:flex;gap:7px}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.m-av{width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.m-av.bot{background:linear-gradient(135deg,var(--g4),var(--g5))}
+.bubble{border-radius:16px;padding:9px 12px;font-size:12px;line-height:1.55}
+.bubble.bot{background:#fff;border:1px solid var(--n7);border-top-left-radius:5px;color:var(--n2)}
+.bubble.user{background:var(--g2);color:#fff;border-top-right-radius:5px}
+.bubble.user.dev{font-size:13px}
+.b-meta{display:flex;align-items:center;gap:8px;margin-top:7px;padding-top:7px;border-top:1px solid var(--n8)}
+.b-meta i{font-size:14px;color:var(--n4)}
+.b-translate{font-size:10px;color:var(--g3);font-weight:600;display:flex;align-items:center;gap:3px}
+.b-verified{font-size:9px;color:var(--g2);background:var(--g7);border-radius:20px;padding:2px 7px;font-weight:700;display:inline-flex;align-items:center;gap:3px;margin-left:auto}
+
+/* typing */
+.typing{display:flex;gap:4px;padding:11px 13px;background:#fff;border:1px solid var(--n7);border-radius:16px;border-top-left-radius:5px;align-self:flex-start}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--n5)}
+.dot:nth-child(2){opacity:.6}.dot:nth-child(3){opacity:.3}
+
+/* answer action buttons */
+.ans-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.aa{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:6px 10px;border-radius:20px}
+.aa.buy{background:var(--g2);color:#fff}
+.aa.ghost{background:var(--g7);color:var(--g2);border:1px solid var(--g6)}
+
+/* follow-up chips */
+.followups{align-self:flex-start;max-width:90%;display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.fu-label{font-size:9px;font-weight:700;color:var(--n4);text-transform:uppercase;letter-spacing:.5px;margin-left:2px}
+.fu{background:#fff;border:1px solid var(--g5);border-radius:20px;padding:7px 12px;font-size:11px;color:var(--g2);font-weight:600;display:flex;align-items:center;gap:6px}
+.fu i{color:var(--g4);font-size:13px}
+
+/* voice message bubble */
+.voicemsg{display:flex;align-items:center;gap:8px}
+.vm-play{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center}
+.vm-play i{color:#fff;font-size:14px}
+.vm-wave{display:flex;align-items:center;gap:2px;height:18px}
+.vm-wave span{width:2px;background:rgba(255,255,255,.7);border-radius:1px}
+.vm-time{font-size:9px;color:rgba(255,255,255,.7)}
+
+/* feedback */
+.fb{display:flex;align-items:center;gap:12px;margin-top:6px;margin-left:33px}
+.fb i{font-size:15px;color:var(--n5)}
+.fb .reg{font-size:10px;color:var(--n4);font-weight:600;display:flex;align-items:center;gap:3px}
+
+/* input bar */
+.inputbar{flex-shrink:0;border-top:1px solid var(--n7);background:#fff;padding:9px 10px}
+.lang-strip{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:9px}
+.lang-strip::-webkit-scrollbar{display:none}
+.lp{flex-shrink:0;font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px;border:1px solid var(--n6);color:var(--n4);background:#fff}
+.lp.on{background:var(--g2);color:#fff;border-color:var(--g2)}
+.in-row{display:flex;align-items:center;gap:8px}
+.in-btn{width:34px;height:34px;border-radius:11px;background:var(--n8);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.in-btn i{color:var(--n4);font-size:18px}
+.in-field{flex:1;background:var(--n8);border:1px solid var(--n7);border-radius:22px;padding:9px 14px;font-size:11px;color:var(--n5)}
+.in-send{width:38px;height:38px;border-radius:50%;background:var(--g2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.in-send i{color:#fff;font-size:18px}
+.in-mic{background:linear-gradient(135deg,var(--g3),var(--g4))}
+.in-mic i{color:#fff}
+
+/* spec */
+.spec{width:300px;flex-shrink:0;color:#cfe3d6}
+.spec h1{font-family:var(--ffs);font-size:24px;color:#fff;font-weight:400}
+.spec .nm{font-family:var(--ffs);font-size:30px;color:var(--g5);line-height:1;margin:4px 0}
+.spec .tag{display:inline-block;font-size:10px;font-weight:600;color:var(--g6);background:rgba(77,175,122,.15);border:1px solid rgba(77,175,122,.3);border-radius:20px;padding:3px 10px;margin:8px 0 16px}
+.spec .blk{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.spec .blk-t{font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.spec .blk-t i{color:var(--g5);font-size:15px}
+.spec .blk p{font-size:11px;color:#9fb8a8;line-height:1.6}
+.spec .blk b{color:#cfe3d6;font-weight:600}
+.spec .note{font-size:10px;color:#6f8a7c;margin-top:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ───────── PHONE 1 · WELCOME ───────── -->
+  <div>
+  <div class="phone">
+    <div class="notch"><div class="notch-pill"></div></div>
+    <div class="screen">
+      <div class="hdr">
+        <div class="hdr-grid"></div>
+        <div class="hdr-row">
+          <div class="bot-av">🌱<div class="online"></div></div>
+          <div>
+            <div class="bot-name">Kisan Mitra</div>
+            <div class="bot-stat"><i class="ti ti-circle-filled" style="font-size:7px;color:#4ADE80"></i>Online · your farming friend</div>
+          </div>
+          <div class="lang"><span>हिन्दी</span><i class="ti ti-chevron-down"></i></div>
+        </div>
+      </div>
+
+      <div class="chat" style="justify-content:flex-start">
+        <div class="welcome">
+          <div class="welcome-av">🌱</div>
+          <div class="welcome-h">Namaste, Rajesh! 🙏</div>
+          <div class="welcome-s dev">मैं किसान मित्र हूँ — आपकी खेती, फसल, मंडी और मौसम में मदद के लिए। कुछ भी पूछें!</div>
+        </div>
+
+        <div class="qgrid">
+          <div class="qg"><div class="qg-ic" style="background:var(--r5);color:var(--r2)">🔬</div><div class="qg-t">Diagnose crop</div><div class="qg-s dev">फसल की बीमारी</div></div>
+          <div class="qg"><div class="qg-ic" style="background:var(--b5);color:var(--b2)">💧</div><div class="qg-t">Irrigation</div><div class="qg-s dev">सिंचाई सलाह</div></div>
+          <div class="qg"><div class="qg-ic" style="background:var(--g7);color:var(--g2)">💰</div><div class="qg-t">Market price</div><div class="qg-s dev">मंडी भाव</div></div>
+          <div class="qg"><div class="qg-ic" style="background:var(--a7);color:var(--a3)">🌱</div><div class="qg-t">Fertilizer</div><div class="qg-s dev">खाद योजना</div></div>
+          <div class="qg"><div class="qg-ic" style="background:var(--a7);color:var(--a2)">🐛</div><div class="qg-t">Pest control</div><div class="qg-s dev">कीट नियंत्रण</div></div>
+          <div class="qg"><div class="qg-ic" style="background:var(--b5);color:var(--b2)">🏛</div><div class="qg-t">Govt schemes</div><div class="qg-s dev">सरकारी योजना</div></div>
+        </div>
+
+        <div class="voice-cta">
+          <div class="voice-ic"><i class="ti ti-microphone"></i></div>
+          <div><div class="voice-t">Can't type? Just speak 🎙️</div><div class="voice-s dev">बोलकर पूछें — हिंदी, कन्नड़, मराठी में</div></div>
+        </div>
+      </div>
+
+      <div class="inputbar">
+        <div class="in-row">
+          <div class="in-btn"><i class="ti ti-plus"></i></div>
+          <div class="in-field dev">कुछ भी पूछें…</div>
+          <div class="in-btn in-mic"><i class="ti ti-microphone"></i></div>
+          <div class="in-send"><i class="ti ti-arrow-up"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="plabel">Screen 1 — Welcome<br/><span class="ptag">Quick-start + voice</span></div>
+  </div>
+
+  <!-- ───────── PHONE 2 · CONVERSATION ───────── -->
+  <div>
+  <div class="phone">
+    <div class="notch"><div class="notch-pill"></div></div>
+    <div class="screen">
+      <div class="hdr">
+        <div class="hdr-grid"></div>
+        <div class="hdr-row">
+          <div class="bot-av">🌱<div class="online"></div></div>
+          <div>
+            <div class="bot-name">Kisan Mitra</div>
+            <div class="bot-stat"><i class="ti ti-circle-filled" style="font-size:7px;color:#4ADE80"></i>Typing…</div>
+          </div>
+          <div class="lang"><span>हिन्दी</span><i class="ti ti-chevron-down"></i></div>
+        </div>
+      </div>
+
+      <div class="chat">
+        <!-- user question (Hindi) -->
+        <div class="msg user">
+          <div class="m-av" style="background:var(--g7)">🧑‍🌾</div>
+          <div class="bubble user dev">मेरे टमाटर के पत्तों पर पीले-भूरे धब्बे आ रहे हैं, क्या करूँ?</div>
+        </div>
+
+        <!-- bot answer -->
+        <div class="msg bot">
+          <div class="m-av bot">🌱</div>
+          <div class="bubble bot">
+            <span class="dev">यह <b>अर्ली ब्लाइट</b> (फफूंद) लगता है। तुरंत करें:</span><br/>
+            <span class="dev">1️⃣ पीले पत्ते तोड़कर हटा दें<br/>2️⃣ नीम तेल (5ml/लीटर) का छिड़काव<br/>3️⃣ पत्तों पर पानी न डालें</span>
+            <div class="ans-actions">
+              <span class="aa buy"><i class="ti ti-shopping-cart" style="font-size:11px"></i>नीम तेल खरीदें</span>
+              <span class="aa ghost"><i class="ti ti-camera" style="font-size:11px"></i>Scan leaf</span>
+            </div>
+            <div class="b-meta">
+              <i class="ti ti-volume"></i>
+              <span class="b-translate"><i class="ti ti-language" style="font-size:12px"></i>Translate to English</span>
+              <span class="b-verified"><i class="ti ti-rosette-discount-check-filled" style="font-size:10px"></i>Expert-verified</span>
+            </div>
+          </div>
+        </div>
+        <div class="fb"><i class="ti ti-thumb-up"></i><i class="ti ti-thumb-down"></i><span class="reg"><i class="ti ti-refresh" style="font-size:12px"></i>Regenerate</span></div>
+
+        <!-- follow-up chips -->
+        <div class="followups">
+          <div class="fu-label">Suggested follow-ups · सुझाव</div>
+          <div class="fu dev"><i class="ti ti-leaf"></i>इसका जैविक इलाज क्या है?</div>
+          <div class="fu dev"><i class="ti ti-flask"></i>कौन सी रासायनिक दवा सही है?</div>
+          <div class="fu dev"><i class="ti ti-shield-check"></i>दोबारा कैसे रोकें?</div>
+        </div>
+
+        <!-- user voice message -->
+        <div class="msg user">
+          <div class="m-av" style="background:var(--g7)">🧑‍🌾</div>
+          <div class="bubble user">
+            <div class="voicemsg">
+              <div class="vm-play"><i class="ti ti-player-play-filled"></i></div>
+              <div class="vm-wave">
+                <span style="height:6px"></span><span style="height:12px"></span><span style="height:18px"></span><span style="height:9px"></span><span style="height:15px"></span><span style="height:7px"></span><span style="height:13px"></span><span style="height:10px"></span><span style="height:16px"></span>
+              </div>
+              <span class="vm-time">0:08</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- typing -->
+        <div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+
+      <div class="inputbar">
+        <div class="lang-strip">
+          <div class="lp on">हिन्दी</div>
+          <div class="lp">English</div>
+          <div class="lp">ಕನ್ನಡ</div>
+          <div class="lp">मराठी</div>
+          <div class="lp">తెలుగు</div>
+          <div class="lp">বাংলা</div>
+        </div>
+        <div class="in-row">
+          <div class="in-btn"><i class="ti ti-camera"></i></div>
+          <div class="in-field dev">कुछ भी पूछें…</div>
+          <div class="in-btn in-mic"><i class="ti ti-microphone"></i></div>
+          <div class="in-send"><i class="ti ti-arrow-up"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="plabel">Screen 2 — Live conversation<br/><span class="ptag">Follow-ups · voice · multilingual</span></div>
+  </div>
+
+  <!-- SPEC -->
+  <div class="spec">
+    <h1>AI Assistant →</h1>
+    <div class="nm">Kisan Mitra</div>
+    <div class="tag">किसान मित्र · "Farmer's Friend"</div>
+
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-sparkles"></i>The rename</div>
+      <p><b>Kisan Mitra</b> = "Farmer's Friend". Warm, vernacular, memorable — it feels like a buddy, not a bot. (Alternatives: <b>FasalGuru</b>, <b>Kheti Saathi</b>.)</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-language"></i>Multilingual</div>
+      <p>Switch language anytime (Hindi · English · Kannada · Marathi · Telugu · Bengali). Each answer has a one-tap <b>Translate</b> and 🔊 <b>read-aloud</b>.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-message-2-question"></i>Smart follow-ups</div>
+      <p>After every answer, context-aware <b>follow-up question chips</b> keep the conversation flowing — your service already returns these; we surface them beautifully.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-microphone"></i>Voice + image</div>
+      <p><b>Speak</b> a question (for low-literacy farmers) or <b>send a photo</b> → ties into Crop Doctor. Voice messages with waveform playback.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-bolt"></i>Quick-start + actions</div>
+      <p>Welcome screen with 6 tap-to-start topics. Answers carry actions: <b>Buy the remedy</b>, Scan leaf, Ask community — looping the whole app together.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-rosette-discount-check"></i>Trust</div>
+      <p>"Expert-verified" badge, 👍/👎 feedback and regenerate — modern chat UX that builds confidence.</p>
+    </div>
+
+    <p class="note">Build plan: rebrand the screen to Kisan Mitra, add the welcome/quick-start state, language switcher with mock multilingual replies, follow-up chips (from the existing service), voice-input affordance, and answer action buttons — all on your current chat + image-picker code. Reply with tweaks or say <b>“build it”</b>.</p>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GreenPlot · Lease Management Flow</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ff:'DM Sans',sans-serif;--ffs:'Instrument Serif',serif;
+  --g1:#092E18;--g2:#0F4A28;--g3:#1A6B3A;--g4:#2D9B56;--g5:#4CAF7A;--g6:#A8D8B8;--g7:#E4F4EC;
+  --a2:#8A5200;--a3:#B87214;--a4:#E09830;--a6:#FAE4A8;--a7:#FDF5E0;
+  --r2:#C02828;--r5:#FDD0D0;--b1:#0B2D5C;--b2:#1A5299;--b4:#82B4F0;--b5:#D4E8FC;
+  --n1:#0D1509;--n2:#1C2E18;--n3:#3A5040;--n4:#6B8074;--n5:#9EB8A8;--n6:#C8D8CC;--n7:#E8F0EC;--n8:#F4F8F5;--n9:#FAFCFA;--white:#fff;
+}
+html,body{font-family:var(--ff);background:#0c1410;color:#cfe3d6;font-size:14px;line-height:1.5;padding:24px 14px}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-family:var(--ffs);font-size:30px;color:#fff;font-weight:400}
+.sub{color:#9fb8a8;font-size:13px;margin:4px 0 22px}
+.h2{font-size:13px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:1px;margin:26px 0 12px;display:flex;align-items:center;gap:8px}
+.h2 i{font-size:17px}
+
+/* ── swimlane flow ── */
+.lane{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px 16px;margin-bottom:12px}
+.lane-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.lane-badge{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px}
+.owner-b{background:var(--a7);color:var(--a2)}
+.farmer-b{background:var(--g7);color:var(--g2)}
+.both-b{background:var(--b5);color:var(--b2)}
+.steps{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.step{flex:1;min-width:130px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:11px 12px;position:relative}
+.step + .step{margin-left:26px}
+.step + .step::before{content:'→';position:absolute;left:-21px;top:50%;transform:translateY(-50%);color:var(--g5);font-size:16px;font-weight:700}
+.step-n{width:20px;height:20px;border-radius:50%;background:var(--g4);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.step-t{font-size:12px;font-weight:700;color:#fff;line-height:1.3}
+.step-s{font-size:10px;color:#9fb8a8;margin-top:3px;line-height:1.4}
+.step.screen{border-color:rgba(77,175,122,.4)}
+.step-scr{font-size:8.5px;color:var(--g5);margin-top:5px;font-family:monospace}
+
+/* ── lease type cards ── */
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;border-top:3px solid}
+.tc-h{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.tc-emoji{font-size:20px}
+.tc-name{font-size:14px;font-weight:800;color:#fff}
+.tc-def{font-size:11px;color:#bcd3c4;line-height:1.5;margin-bottom:9px}
+.tc-row{display:flex;gap:7px;font-size:10px;margin-bottom:5px}
+.tc-k{color:var(--g5);font-weight:700;min-width:70px;flex-shrink:0}
+.tc-v{color:#9fb8a8}
+.risk{display:flex;gap:3px;margin-top:8px;align-items:center}
+.risk-l{font-size:9px;color:#6f8a7c;margin-right:3px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15)}
+.dot.on{background:var(--a4)}
+
+/* ── phones ── */
+.phones{display:flex;gap:20px;flex-wrap:wrap}
+.pcol{flex-shrink:0}
+.phone{width:280px;background:#fff;border-radius:34px;border:8px solid var(--n2);overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,.4)}
+.notch{height:24px;background:var(--n2);display:flex;align-items:center;justify-content:center}
+.npill{width:80px;height:14px;background:var(--n1);border-radius:8px}
+.screen2{height:520px;overflow-y:auto;background:var(--n8);scrollbar-width:none}
+.screen2::-webkit-scrollbar{display:none}
+.plabel{text-align:center;color:#9fb8a8;font-size:11px;font-weight:600;margin-top:9px;width:280px}
+.ptag{display:inline-block;background:rgba(77,175,122,.15);color:var(--g6);font-size:9px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:3px}
+
+.hd{background:linear-gradient(165deg,var(--g1),var(--g3));padding:13px 15px;color:#fff}
+.hd-s{font-size:9px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:1px}
+.hd-t{font-family:var(--ffs);font-size:19px}
+.sec{padding:13px 14px 0;color:var(--n2)}
+.lbl{font-size:10px;font-weight:700;color:var(--n4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.card{background:#fff;border:1px solid var(--n7);border-radius:12px;padding:12px;margin-bottom:10px}
+.field{background:var(--n8);border:1px solid var(--n7);border-radius:9px;padding:10px 12px;font-size:12px;color:var(--n3);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.field b{color:var(--n1)}
+.typchips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tchip{font-size:10px;font-weight:700;padding:6px 10px;border-radius:18px;border:1px solid var(--n6);color:var(--n4);background:#fff}
+.tchip.on{background:var(--g2);color:#fff;border-color:var(--g2)}
+.dyn{background:var(--g7);border:1px dashed var(--g5);border-radius:11px;padding:11px;margin-bottom:10px}
+.dyn-h{font-size:10px;font-weight:800;color:var(--g1);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.slider{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--g4) 50%,var(--a4) 50%);position:relative;margin:8px 0}
+.knob{position:absolute;left:calc(50% - 8px);top:-4px;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--g3)}
+.split{display:flex;justify-content:space-between;font-size:11px;font-weight:700}
+.btn{background:var(--g2);color:#fff;text-align:center;font-size:13px;font-weight:700;padding:12px;border-radius:11px;margin:6px 14px 14px}
+.btn.ghost{background:var(--g7);color:var(--g2)}
+
+/* offer card (farmer) */
+.offer{border:1px solid var(--n7);border-radius:12px;padding:11px;margin-bottom:9px}
+.offer.best{border-color:var(--g5);background:var(--g7)}
+.offer-h{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.offer-n{font-size:13px;font-weight:800;color:var(--n2)}
+.offer-tag{margin-left:auto;font-size:8px;font-weight:800;padding:2px 7px;border-radius:10px;background:var(--g4);color:#fff}
+.offer-m{font-size:11px;color:var(--n4);line-height:1.5}
+.offer-m b{color:var(--g1)}
+
+/* agreement */
+.agr{background:#fff;border:1px solid var(--n7);border-radius:12px;padding:13px;margin:0 14px 10px;font-size:11px;color:var(--n3);line-height:1.6}
+.agr-h{font-family:var(--ffs);font-size:16px;color:var(--n1);margin-bottom:8px}
+.sign{border:1px dashed var(--n6);border-radius:9px;padding:14px;text-align:center;color:var(--n5);font-size:11px;margin-top:8px}
+.party{display:flex;justify-content:space-between;font-size:11px;margin:4px 0}
+.chk{color:var(--g3)}
+
+/* status timeline */
+.tl{padding:0 14px}
+.tle{display:flex;gap:10px;padding-bottom:14px;position:relative}
+.tle::before{content:'';position:absolute;left:11px;top:24px;bottom:-2px;width:2px;background:var(--n7)}
+.tle:last-child::before{display:none}
+.tld{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;z-index:1}
+.tld.done{background:var(--g4);color:#fff}
+.tld.now{background:var(--a4);color:#fff}
+.tld.wait{background:var(--n7);color:var(--n5)}
+.tlt{font-size:12px;font-weight:700;color:var(--n2)}
+.tls{font-size:10px;color:var(--n4)}
+
+.spec{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;margin-top:24px}
+.spec b{color:#fff}
+.spec p{font-size:12px;color:#9fb8a8;line-height:1.7;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Lease Management — full flow</h1>
+  <div class="sub">Owner side + Farmer side · supporting all 6 lease types · the handshake that turns an offer into an active lease</div>
+
+  <!-- ───────── FLOW SWIMLANES ───────── -->
+  <div class="h2"><i class="ti ti-route"></i>The end-to-end flow</div>
+
+  <div class="lane">
+    <div class="lane-head"><span class="lane-badge owner-b">🏠 OWNER</span><span style="font-size:11px;color:#9fb8a8">Lists land &amp; sets the lease terms</span></div>
+    <div class="steps">
+      <div class="step screen"><div class="step-n">1</div><div class="step-t">Create Land</div><div class="step-s">Location, acres, soil, photos, survey no.</div><div class="step-scr">AddFarmScreen</div></div>
+      <div class="step screen"><div class="step-n">2</div><div class="step-t">Add Lease Offer(s)</div><div class="step-s">Pick type → dynamic terms form</div><div class="step-scr">AddLeaseOffer ★new</div></div>
+      <div class="step screen"><div class="step-n">3</div><div class="step-t">Publish land</div><div class="step-s">Goes live in farmer marketplace</div><div class="step-scr">MyProperties</div></div>
+      <div class="step screen"><div class="step-n">7</div><div class="step-t">Review applications</div><div class="step-s">Approve / reject farmer requests</div><div class="step-scr">LeaseRequests ★new</div></div>
+    </div>
+  </div>
+
+  <div class="lane">
+    <div class="lane-head"><span class="lane-badge farmer-b">🧑‍🌾 FARMER</span><span style="font-size:11px;color:#9fb8a8">Finds land &amp; picks a lease option</span></div>
+    <div class="steps">
+      <div class="step screen"><div class="step-n">4</div><div class="step-t">Browse lands</div><div class="step-s">Search, filter, nearby</div><div class="step-scr">AllAvailableLands</div></div>
+      <div class="step screen"><div class="step-n">5</div><div class="step-t">View lease options</div><div class="step-s">All offers on this land · compare</div><div class="step-scr">LeaseTypeDetails / Compare</div></div>
+      <div class="step screen"><div class="step-n">6</div><div class="step-t">Apply for a lease</div><div class="step-s">Pick one offer → send request</div><div class="step-scr">LeaseApplication</div></div>
+    </div>
+  </div>
+
+  <div class="lane">
+    <div class="lane-head"><span class="lane-badge both-b">🤝 BOTH</span><span style="font-size:11px;color:#9fb8a8">The handshake → live lease</span></div>
+    <div class="steps">
+      <div class="step screen"><div class="step-n">8</div><div class="step-t">Digital agreement</div><div class="step-s">Auto-generated from the offer terms</div><div class="step-scr">Agreement ★new</div></div>
+      <div class="step screen"><div class="step-n">9</div><div class="step-t">e-Sign (both)</div><div class="step-s">Owner + farmer accept &amp; sign</div><div class="step-scr">LeaseConfirmation</div></div>
+      <div class="step screen"><div class="step-n">10</div><div class="step-t">✅ Active Lease</div><div class="step-s">Shows in My Leases / Tenants</div><div class="step-scr">MyActiveLeases / Tenants</div></div>
+      <div class="step screen"><div class="step-n">11</div><div class="step-t">Payments &amp; renewal</div><div class="step-s">Track dues, renew before expiry</div><div class="step-scr">AgreementDetails</div></div>
+    </div>
+  </div>
+
+  <!-- ───────── 6 LEASE TYPES ───────── -->
+  <div class="h2"><i class="ti ti-file-description"></i>Your 6 lease types — defined (this fixes the confusion)</div>
+  <div class="types">
+
+    <div class="tc" style="border-top-color:var(--g4)">
+      <div class="tc-h"><span class="tc-emoji">💵</span><span class="tc-name">Cash Rent</span></div>
+      <div class="tc-def">Farmer pays a fixed cash amount <b>upfront</b> for the season. Owner takes zero risk.</div>
+      <div class="tc-row"><span class="tc-k">Owner enters</span><span class="tc-v">Total ₹ + pay-by date</span></div>
+      <div class="tc-row"><span class="tc-k">Money flow</span><span class="tc-v">Lump-sum cash before sowing</span></div>
+      <div class="risk"><span class="risk-l">Owner risk</span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+
+    <div class="tc" style="border-top-color:var(--g3)">
+      <div class="tc-h"><span class="tc-emoji">📅</span><span class="tc-name">Fixed Rent</span></div>
+      <div class="tc-def">Fixed ₹ per acre / year, paid in <b>installments</b> (e.g. 50% sowing, 50% harvest).</div>
+      <div class="tc-row"><span class="tc-k">Owner enters</span><span class="tc-v">₹/acre/yr + installments</span></div>
+      <div class="tc-row"><span class="tc-k">Money flow</span><span class="tc-v">Scheduled fixed payments</span></div>
+      <div class="risk"><span class="risk-l">Owner risk</span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+
+    <div class="tc" style="border-top-color:var(--a4)">
+      <div class="tc-h"><span class="tc-emoji">🌾</span><span class="tc-name">Crop Share</span></div>
+      <div class="tc-def">Owner &amp; farmer split the <b>physical harvest</b> by a ratio (50:50, 60:40…). No fixed cash.</div>
+      <div class="tc-row"><span class="tc-k">Owner enters</span><span class="tc-v">Share % + input-cost split</span></div>
+      <div class="tc-row"><span class="tc-k">Money flow</span><span class="tc-v">Produce divided at harvest</span></div>
+      <div class="risk"><span class="risk-l">Owner risk</span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+
+    <div class="tc" style="border-top-color:var(--a3)">
+      <div class="tc-h"><span class="tc-emoji">💰</span><span class="tc-name">Revenue Share</span></div>
+      <div class="tc-def">Owner gets a <b>% of the sale revenue</b> (cash from selling the crop), e.g. 25%.</div>
+      <div class="tc-row"><span class="tc-k">Owner enters</span><span class="tc-v">Revenue % + cost split</span></div>
+      <div class="tc-row"><span class="tc-k">Money flow</span><span class="tc-v">% of money after the sale</span></div>
+      <div class="risk"><span class="risk-l">Owner risk</span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+    </div>
+
+    <div class="tc" style="border-top-color:var(--b2)">
+      <div class="tc-h"><span class="tc-emoji">⚖️</span><span class="tc-name">Flexible Share</span></div>
+      <div class="tc-def"><b>Base rent + bonus</b> that flexes with yield/price. Base is safe; both share the upside.</div>
+      <div class="tc-row"><span class="tc-k">Owner enters</span><span class="tc-v">Base ₹/acre + bonus rule</span></div>
+      <div class="tc-row"><span class="tc-k">Money flow</span><span class="tc-v">Guaranteed base + % upside</span></div>
+      <div class="risk"><span class="risk-l">Owner risk</span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+
+    <div class="tc" style="border-top-color:var(--n4)">
+      <div class="tc-h"><span class="tc-emoji">📝</span><span class="tc-name">Custom (crop-based)</span></div>
+      <div class="tc-def">Owner writes <b>custom terms per crop</b> + free-form clauses. For anything the 5 presets don't cover.</div>
+      <div class="tc-row"><span class="tc-k">Owner enters</span><span class="tc-v">Per-crop terms + clauses</span></div>
+      <div class="tc-row"><span class="tc-k">Money flow</span><span class="tc-v">Whatever is agreed</span></div>
+      <div class="risk"><span class="risk-l">Owner risk</span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+  </div>
+
+  <!-- ───────── KEY SCREENS ───────── -->
+  <div class="h2"><i class="ti ti-device-mobile"></i>The key screens (the parts that are new / confusing)</div>
+  <div class="phones">
+
+    <!-- Owner: Add Lease Offer (dynamic) -->
+    <div class="pcol">
+      <div class="phone"><div class="notch"><div class="npill"></div></div><div class="screen2">
+        <div class="hd"><div class="hd-s">Owner · Step 2</div><div class="hd-t">Add lease offer</div></div>
+        <div class="sec">
+          <div class="lbl">Lease type</div>
+          <div class="typchips">
+            <span class="tchip">💵 Cash</span><span class="tchip">📅 Fixed</span>
+            <span class="tchip on">🌾 Crop Share</span><span class="tchip">💰 Revenue</span>
+            <span class="tchip">⚖️ Flexible</span><span class="tchip">📝 Custom</span>
+          </div>
+          <!-- DYNAMIC fields for Crop Share -->
+          <div class="dyn">
+            <div class="dyn-h"><i class="ti ti-adjustments"></i>CROP SHARE — terms</div>
+            <div class="split"><span style="color:var(--g2)">Farmer 50%</span><span style="color:var(--a3)">Owner 50%</span></div>
+            <div class="slider"><div class="knob"></div></div>
+            <div class="field">Input-cost split <b>50 / 50</b></div>
+            <div class="field">Crops allowed <b>Tomato, Cotton</b></div>
+          </div>
+          <div class="field">Tenure <b>3 years</b></div>
+          <div class="field">Available from <b>Jun 2026</b></div>
+        </div>
+        <div class="btn">Publish offer →</div>
+      </div></div>
+      <div class="plabel">Owner — Add lease offer<br/><span class="ptag">★ Dynamic form by type</span></div>
+    </div>
+
+    <!-- Farmer: lease options + compare -->
+    <div class="pcol">
+      <div class="phone"><div class="notch"><div class="npill"></div></div><div class="screen2">
+        <div class="hd"><div class="hd-s">Farmer · Step 5 · Hubli North Field</div><div class="hd-t">Lease options</div></div>
+        <div class="sec">
+          <div class="lbl">3 offers on this land</div>
+          <div class="offer best">
+            <div class="offer-h"><span>🌾</span><span class="offer-n">Crop Share</span><span class="offer-tag">RECOMMENDED</span></div>
+            <div class="offer-m">Split harvest <b>50:50</b> · inputs 50/50 · 3 yrs · low cash needed</div>
+          </div>
+          <div class="offer">
+            <div class="offer-h"><span>📅</span><span class="offer-n">Fixed Rent</span></div>
+            <div class="offer-m"><b>₹12,000/acre/yr</b> · 2 installments · you keep 100% of crop</div>
+          </div>
+          <div class="offer">
+            <div class="offer-h"><span>⚖️</span><span class="offer-n">Flexible Share</span></div>
+            <div class="offer-m">Base <b>₹6,000/acre</b> + 20% bonus if price &gt; ₹20/kg</div>
+          </div>
+        </div>
+        <div class="btn ghost">⚖ Compare all 3</div>
+        <div class="btn">Apply for Crop Share →</div>
+      </div></div>
+      <div class="plabel">Farmer — pick an option<br/><span class="ptag">Compare &amp; apply</span></div>
+    </div>
+
+    <!-- Agreement + e-sign -->
+    <div class="pcol">
+      <div class="phone"><div class="notch"><div class="npill"></div></div><div class="screen2">
+        <div class="hd"><div class="hd-s">Both · Step 8–9</div><div class="hd-t">Lease agreement</div></div>
+        <div class="agr" style="margin-top:12px">
+          <div class="agr-h">Crop Share Agreement</div>
+          Hubli North Field · 6 acres · 3-year term<br/>
+          Harvest split <b>50% farmer / 50% owner</b><br/>
+          Input costs shared 50/50 · Crops: Tomato, Cotton<br/>
+          <div class="party"><span>🏠 Suresh (Owner)</span><span class="chk">✓ Signed</span></div>
+          <div class="party"><span>🧑‍🌾 Rajesh (Farmer)</span><span style="color:var(--a3)">Pending</span></div>
+          <div class="sign"><i class="ti ti-signature" style="font-size:18px"></i><br/>Tap to e-sign</div>
+        </div>
+        <div class="btn">Accept &amp; Sign →</div>
+      </div></div>
+      <div class="plabel">Both — digital agreement<br/><span class="ptag">★ Auto-built from terms</span></div>
+    </div>
+
+    <!-- Status timeline -->
+    <div class="pcol">
+      <div class="phone"><div class="notch"><div class="npill"></div></div><div class="screen2">
+        <div class="hd"><div class="hd-s">Farmer · Step 10</div><div class="hd-t">Lease status</div></div>
+        <div class="sec"><div class="lbl">Hubli North Field · Crop Share</div></div>
+        <div class="tl">
+          <div class="tle"><div class="tld done">✓</div><div><div class="tlt">Application sent</div><div class="tls">Jun 10 · to Suresh</div></div></div>
+          <div class="tle"><div class="tld done">✓</div><div><div class="tlt">Owner approved</div><div class="tls">Jun 11</div></div></div>
+          <div class="tle"><div class="tld done">✓</div><div><div class="tlt">Agreement signed</div><div class="tls">Both parties · Jun 12</div></div></div>
+          <div class="tle"><div class="tld now">●</div><div><div class="tlt">Active lease</div><div class="tls">Running · ends Jun 2029</div></div></div>
+          <div class="tle"><div class="tld wait">○</div><div><div class="tlt">Next: harvest split</div><div class="tls">~Nov 2026</div></div></div>
+        </div>
+      </div></div>
+      <div class="plabel">Status &amp; active lease<br/><span class="ptag">The loop, closed</span></div>
+    </div>
+  </div>
+
+  <!-- SPEC -->
+  <div class="spec">
+    <p><b>The core fix:</b> a Land has one or more <b>Lease Offers</b>. The owner sets terms per offer with a <b>form that changes by lease type</b> (Crop Share shows a split slider; Fixed Rent shows ₹/acre + installments; Custom shows a clause editor). The farmer sees those real offers, picks one, applies — then approve → agreement → e-sign → active.</p>
+    <p><b>Reuses your existing screens:</b> AddFarmScreen, LeaseTypeDetails, LeaseDetailView, CompareLeases, LeaseApplication, LeaseConfirmation, LeaseStatus, MyActiveLeases, AgreementDetails, Tenants. <b>New pieces:</b> AddLeaseOffer (dynamic form), LeaseRequests (owner inbox), Agreement generator. The hardcoded mock lease lists get replaced by one shared <b>LEASE_TYPES</b> definition used by both sides.</p>
+    <p><b>Backend (Supabase):</b> tables <b>lands</b> → <b>lease_offers</b> (type + terms jsonb) → <b>lease_requests</b> → <b>leases</b> (active) — exactly the chain in schema.sql.</p>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GreenPlot · Owner Home — redesign sample</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ff:'DM Sans',sans-serif;--ffs:'Instrument Serif',serif;
+  --g1:#092E18;--g2:#0F4A28;--g3:#1A6B3A;--g4:#2D9B56;--g5:#4CAF7A;--g6:#A8D8B8;--g7:#E4F4EC;
+  --a1:#5C3300;--a2:#8A5200;--a3:#B87214;--a4:#E09830;--a6:#FAE4A8;--a7:#FDF5E0;
+  --r1:#6B1212;--r2:#C02828;--r3:#E04848;--r4:#F47A7A;--r5:#FDD0D0;
+  --b1:#0B2D5C;--b2:#1A5299;--b4:#82B4F0;--b5:#D4E8FC;
+  --n1:#0D1509;--n2:#1C2E18;--n3:#3A5040;--n4:#6B8074;--n5:#9EB8A8;--n6:#C8D8CC;--n7:#E8F0EC;--n8:#F4F8F5;--n9:#FAFCFA;--white:#fff;
+  --rad-xs:6px;--rad-sm:10px;--rad-md:14px;--rad-lg:18px;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --float:0 6px 22px rgba(0,0,0,.12);
+}
+html,body{font-family:var(--ff);background:#0c1410;color:var(--n1);font-size:14px;line-height:1.5;padding:24px 12px}
+.wrap{max-width:760px;margin:0 auto;display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+
+/* phone */
+.phone{width:300px;flex-shrink:0;background:#fff;border-radius:38px;border:9px solid var(--n2);overflow:hidden;box-shadow:var(--float);position:relative}
+.notch{height:28px;background:var(--n2);display:flex;align-items:center;justify-content:center}
+.notch-pill{width:88px;height:16px;background:var(--n1);border-radius:9px}
+.screen{height:600px;overflow-y:auto;background:var(--n8);scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+
+/* header */
+.hdr{background:linear-gradient(165deg,var(--g1),var(--g2) 55%,var(--g3));padding:16px 16px 18px;position:relative;overflow:hidden}
+.hdr-grid{position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(90deg,transparent 0 39px,#fff 39px 40px),repeating-linear-gradient(0deg,transparent 0 39px,#fff 39px 40px)}
+.hdr-top{position:relative;z-index:1;display:flex;align-items:center;gap:10px}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--a5);color:var(--a1);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;border:2px solid rgba(255,255,255,.3)}
+.hi{font-size:11px;color:rgba(255,255,255,.6)}
+.name{font-family:var(--ffs);font-size:19px;color:#fff;line-height:1.1}
+.loc{font-size:10px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:3px;margin-top:1px}
+.bell{margin-left:auto;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;position:relative}
+.bell i{color:#fff;font-size:18px}
+.bell-dot{position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--r3);border:1.5px solid var(--g2)}
+/* portfolio hero */
+.port{position:relative;z-index:1;margin-top:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:var(--rad-md);padding:13px 14px;backdrop-filter:blur(4px)}
+.port-label{font-size:10px;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.port-val{font-family:var(--ffs);font-size:30px;color:#fff;line-height:1.05;margin-top:2px}
+.port-chip{display:inline-flex;align-items:center;gap:3px;background:rgba(77,175,122,.28);border:1px solid rgba(168,216,184,.5);color:#CFEFDB;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:5px}
+.port-stats{display:flex;margin-top:12px;border-top:1px solid rgba(255,255,255,.14);padding-top:10px}
+.pst{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.12)}
+.pst:last-child{border-right:none}
+.pst-v{font-size:15px;font-weight:700;color:#fff}
+.pst-l{font-size:9px;color:rgba(255,255,255,.55);margin-top:1px}
+
+/* generic section */
+.sec{padding:14px 14px 0}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.sec-t{font-size:13px;font-weight:700;color:var(--n2);display:flex;align-items:center;gap:6px}
+.sec-t i{color:var(--g3);font-size:16px}
+.sec-link{font-size:11px;color:var(--g3);font-weight:600}
+.card{background:#fff;border:1px solid var(--n7);border-radius:var(--rad-md);box-shadow:var(--shadow)}
+
+/* revenue */
+.rev{padding:13px 14px;display:flex;align-items:flex-end;justify-content:space-between}
+.rev-l{font-size:10px;color:var(--n4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.rev-v{font-family:var(--ffs);font-size:26px;color:var(--g1);line-height:1}
+.rev-chip{font-size:10px;font-weight:700;color:var(--g2);background:var(--g7);padding:2px 7px;border-radius:10px;margin-top:4px;display:inline-block}
+.spark{display:flex;align-items:flex-end;gap:3px;height:38px}
+.spark span{width:5px;border-radius:2px 2px 0 0;background:var(--g5)}
+.spark span.hi{background:var(--g3)}
+.payout{border-top:1px dashed var(--n6);margin:0 14px;padding:9px 0;display:flex;align-items:center;gap:8px}
+.payout i{color:var(--a3);font-size:16px}
+.payout-t{font-size:11px;color:var(--n3)}
+.payout-t b{color:var(--n1)}
+.payout-go{margin-left:auto;font-size:11px;color:var(--g3);font-weight:600}
+
+/* stat tiles */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{background:#fff;border:1px solid var(--n7);border-radius:var(--rad-sm);padding:11px 12px}
+.tile-top{display:flex;align-items:center;gap:6px}
+.tile-ic{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.tile-v{font-size:18px;font-weight:700;color:var(--n1);margin-top:6px}
+.tile-l{font-size:10px;color:var(--n4)}
+.tile-sub{font-size:9px;font-weight:600;margin-top:1px}
+
+/* action alerts */
+.alert{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:var(--rad-sm);border:1px solid;margin-bottom:8px}
+.alert-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.alert-t{font-size:12px;font-weight:600}
+.alert-s{font-size:10px;margin-top:1px}
+.alert-btn{margin-left:auto;font-size:10px;font-weight:700;padding:5px 10px;border-radius:20px;flex-shrink:0}
+
+/* property snapshot */
+.prop{display:flex;gap:11px;padding:11px 12px;border-bottom:1px solid var(--n8)}
+.prop:last-child{border-bottom:none}
+.prop-img{width:46px;height:46px;border-radius:var(--rad-sm);background:linear-gradient(135deg,var(--g6),var(--g7));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.prop-name{font-size:12px;font-weight:700;color:var(--n2);display:flex;align-items:center;gap:5px}
+.st{font-size:8px;font-weight:700;padding:1px 6px;border-radius:10px;text-transform:uppercase;letter-spacing:.3px}
+.st-leased{background:var(--g7);color:var(--g2)}
+.st-vacant{background:var(--a7);color:var(--a2)}
+.prop-meta{font-size:10px;color:var(--n4);margin-top:2px}
+.prop-r{margin-left:auto;text-align:right;flex-shrink:0}
+.prop-rent{font-size:13px;font-weight:700;color:var(--g2)}
+.prop-next{font-size:9px;color:var(--n4)}
+.prop-cta{font-size:10px;font-weight:700;color:var(--a3)}
+
+/* tools */
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tool{background:#fff;border:1px solid var(--n7);border-radius:var(--rad-sm);padding:12px 6px;text-align:center}
+.tool-ic{width:36px;height:36px;border-radius:11px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.tool-l{font-size:10px;font-weight:600;color:var(--n3)}
+
+/* activity */
+.act{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--n8)}
+.act:last-child{border-bottom:none}
+.act-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.act-t{font-size:11px;font-weight:600;color:var(--n2)}
+.act-s{font-size:10px;color:var(--n4)}
+.act-time{font-size:9px;color:var(--n5);margin-left:auto;flex-shrink:0}
+
+/* bottom nav */
+.bnav{position:sticky;bottom:0;display:flex;background:#fff;border-top:1px solid var(--n7);padding:8px 0 10px}
+.bn{flex:1;text-align:center}
+.bn i{font-size:20px;color:var(--n5)}
+.bn span{display:block;font-size:9px;color:var(--n4);margin-top:1px}
+.bn.on i{color:var(--g3)}
+.bn.on span{color:var(--g2);font-weight:600}
+
+/* fab */
+.fab{position:absolute;right:14px;bottom:74px;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--g3),var(--g4));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(15,74,40,.45);z-index:5}
+.fab i{color:#fff;font-size:24px}
+
+/* spec panel */
+.spec{width:300px;flex-shrink:0;color:#cfe3d6}
+.spec h1{font-family:var(--ffs);font-size:24px;color:#fff;font-weight:400}
+.spec .tag{display:inline-block;font-size:10px;font-weight:600;color:var(--g6);background:rgba(77,175,122,.15);border:1px solid rgba(77,175,122,.3);border-radius:20px;padding:3px 10px;margin:8px 0 16px}
+.spec .blk{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.spec .blk-t{font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.spec .blk-t i{color:var(--g5);font-size:15px}
+.spec .blk p{font-size:11px;color:#9fb8a8;line-height:1.6}
+.spec .blk b{color:#cfe3d6;font-weight:600}
+.spec .note{font-size:10px;color:#6f8a7c;margin-top:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ───────── PHONE ───────── -->
+  <div class="phone">
+    <div class="notch"><div class="notch-pill"></div></div>
+    <div class="screen">
+
+      <!-- HEADER + PORTFOLIO -->
+      <div class="hdr">
+        <div class="hdr-grid"></div>
+        <div class="hdr-top">
+          <div class="avatar">RK</div>
+          <div>
+            <div class="hi">Good morning👋</div>
+            <div class="name">Rajesh Kumar</div>
+            <div class="loc"><i class="ti ti-map-pin"></i>Dharwad, Karnataka</div>
+          </div>
+          <div class="bell"><i class="ti ti-bell"></i><div class="bell-dot"></div></div>
+        </div>
+        <div class="port">
+          <div class="port-label">Total portfolio value</div>
+          <div class="port-val">₹48.5 L</div>
+          <div class="port-chip"><i class="ti ti-trending-up" style="font-size:12px"></i>+8.2% this year</div>
+          <div class="port-stats">
+            <div class="pst"><div class="pst-v">6</div><div class="pst-l">Lands</div></div>
+            <div class="pst"><div class="pst-v">4</div><div class="pst-l">Leased</div></div>
+            <div class="pst"><div class="pst-v">2</div><div class="pst-l">Vacant</div></div>
+            <div class="pst"><div class="pst-v">24</div><div class="pst-l">Acres</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVENUE -->
+      <div class="sec">
+        <div class="card">
+          <div class="rev">
+            <div>
+              <div class="rev-l">Revenue · this month</div>
+              <div class="rev-v">₹1,24,500</div>
+              <span class="rev-chip">▲ 12% vs last month</span>
+            </div>
+            <div class="spark">
+              <span style="height:40%"></span><span style="height:55%"></span><span style="height:48%"></span>
+              <span style="height:70%"></span><span style="height:62%"></span><span class="hi" style="height:90%"></span>
+            </div>
+          </div>
+          <div class="payout">
+            <i class="ti ti-calendar-dollar"></i>
+            <div class="payout-t">Next payout <b>₹45,000</b> · due Jun 15</div>
+            <div class="payout-go">Details ›</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY STATS -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-chart-bar"></i>Key metrics</div></div>
+        <div class="tiles">
+          <div class="tile">
+            <div class="tile-top"><div class="tile-ic" style="background:var(--g7);color:var(--g3)"><i class="ti ti-percentage"></i></div></div>
+            <div class="tile-v">67%</div><div class="tile-l">Occupancy</div>
+            <div class="tile-sub" style="color:var(--g3)">4 of 6 leased</div>
+          </div>
+          <div class="tile">
+            <div class="tile-top"><div class="tile-ic" style="background:var(--b5);color:var(--b2)"><i class="ti ti-file-text"></i></div></div>
+            <div class="tile-v">4</div><div class="tile-l">Active leases</div>
+            <div class="tile-sub" style="color:var(--b2)">1 renews soon</div>
+          </div>
+          <div class="tile">
+            <div class="tile-top"><div class="tile-ic" style="background:var(--r5);color:var(--r2)"><i class="ti ti-alert-circle"></i></div></div>
+            <div class="tile-v" style="color:var(--r2)">₹18,000</div><div class="tile-l">Pending dues</div>
+            <div class="tile-sub" style="color:var(--r2)">2 tenants overdue</div>
+          </div>
+          <div class="tile">
+            <div class="tile-top"><div class="tile-ic" style="background:var(--a7);color:var(--a3)"><i class="ti ti-coin-rupee"></i></div></div>
+            <div class="tile-v">₹7,500</div><div class="tile-l">Avg rent / acre</div>
+            <div class="tile-sub" style="color:var(--n4)">per year</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTION REQUIRED -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-bolt"></i>Action required</div><div class="sec-link">View all</div></div>
+        <div class="alert" style="background:var(--a7);border-color:var(--a6)">
+          <div class="alert-ic" style="background:#fff;color:var(--a3)"><i class="ti ti-checkup-list"></i></div>
+          <div><div class="alert-t" style="color:var(--a1)">3 budget approvals</div><div class="alert-s" style="color:var(--a2)">Tenant crop-input requests</div></div>
+          <div class="alert-btn" style="background:var(--a3);color:#fff">Review</div>
+        </div>
+        <div class="alert" style="background:var(--r5);border-color:var(--r4)">
+          <div class="alert-ic" style="background:#fff;color:var(--r2)"><i class="ti ti-cash-off"></i></div>
+          <div><div class="alert-t" style="color:var(--r1)">Rent overdue · Gadag Plot</div><div class="alert-s" style="color:var(--r2)">₹12,000 · 8 days late</div></div>
+          <div class="alert-btn" style="background:var(--r2);color:#fff">Remind</div>
+        </div>
+        <div class="alert" style="background:var(--b5);border-color:var(--b4)">
+          <div class="alert-ic" style="background:#fff;color:var(--b2)"><i class="ti ti-file-certificate"></i></div>
+          <div><div class="alert-t" style="color:var(--b1)">Lease renewal · Hubli North</div><div class="alert-s" style="color:var(--b2)">Expires in 14 days</div></div>
+          <div class="alert-btn" style="background:var(--b2);color:#fff">Renew</div>
+        </div>
+        <div class="alert" style="background:var(--g7);border-color:var(--g6)">
+          <div class="alert-ic" style="background:#fff;color:var(--g3)"><i class="ti ti-virus"></i></div>
+          <div><div class="alert-t" style="color:var(--g1)">Disease risk · Tomato field</div><div class="alert-s" style="color:var(--g3)">Early blight detected · Bangalore N</div></div>
+          <div class="alert-btn" style="background:var(--g3);color:#fff">View</div>
+        </div>
+      </div>
+
+      <!-- MY PROPERTIES -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-map-2"></i>My properties</div><div class="sec-link">All 6 ›</div></div>
+        <div class="card">
+          <div class="prop">
+            <div class="prop-img">🌾</div>
+            <div style="flex:1">
+              <div class="prop-name">Hubli North Field <span class="st st-leased">Leased</span></div>
+              <div class="prop-meta">6 acres · 🍅 Tomato · Tenant: Suresh M.</div>
+            </div>
+            <div class="prop-r"><div class="prop-rent">₹45k/yr</div><div class="prop-next">Next: Jun 15</div></div>
+          </div>
+          <div class="prop">
+            <div class="prop-img">🌱</div>
+            <div style="flex:1">
+              <div class="prop-name">Dharwad East <span class="st st-leased">Leased</span></div>
+              <div class="prop-meta">8 acres · ☁️ Cotton · Tenant: Anil K.</div>
+            </div>
+            <div class="prop-r"><div class="prop-rent">₹60k/yr</div><div class="prop-next">Next: Jul 02</div></div>
+          </div>
+          <div class="prop">
+            <div class="prop-img">🟫</div>
+            <div style="flex:1">
+              <div class="prop-name">Gadag Plot <span class="st st-vacant">Vacant</span></div>
+              <div class="prop-meta">4 acres · 12 views this week</div>
+            </div>
+            <div class="prop-r"><div class="prop-cta">List now ›</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FARM TOOLS -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-tools"></i>Farm tools</div></div>
+        <div class="tools">
+          <div class="tool"><div class="tool-ic" style="background:var(--g7);color:var(--g3)"><i class="ti ti-satellite"></i></div><div class="tool-l">Satellite</div></div>
+          <div class="tool"><div class="tool-ic" style="background:var(--b5);color:var(--b2)"><i class="ti ti-users-group"></i></div><div class="tool-l">Labor</div></div>
+          <div class="tool"><div class="tool-ic" style="background:var(--a7);color:var(--a3)"><i class="ti ti-flask"></i></div><div class="tool-l">Soil test</div></div>
+          <div class="tool"><div class="tool-ic" style="background:#EDE8FD;color:#4B2EA8"><i class="ti ti-report"></i></div><div class="tool-l">Work report</div></div>
+          <div class="tool"><div class="tool-ic" style="background:var(--g7);color:var(--g2)"><i class="ti ti-chart-line"></i></div><div class="tool-l">Market</div></div>
+          <div class="tool"><div class="tool-ic" style="background:var(--n7);color:var(--n3)"><i class="ti ti-plus"></i></div><div class="tool-l">Add land</div></div>
+        </div>
+      </div>
+
+      <!-- RECENT ACTIVITY -->
+      <div class="sec" style="padding-bottom:16px">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-history"></i>Recent activity</div><div class="sec-link">View all</div></div>
+        <div class="card" style="padding:4px 12px">
+          <div class="act">
+            <div class="act-dot" style="background:var(--g7);color:var(--g2)"><i class="ti ti-cash"></i></div>
+            <div><div class="act-t">Payment received · ₹45,000</div><div class="act-s">From Suresh M. · Hubli North</div></div>
+            <div class="act-time">2h</div>
+          </div>
+          <div class="act">
+            <div class="act-dot" style="background:var(--b5);color:var(--b2)"><i class="ti ti-file-plus"></i></div>
+            <div><div class="act-t">New lease request</div><div class="act-s">Gadag Plot · from Vikram R.</div></div>
+            <div class="act-time">4h</div>
+          </div>
+          <div class="act">
+            <div class="act-dot" style="background:var(--a7);color:var(--a2)"><i class="ti ti-clipboard-check"></i></div>
+            <div><div class="act-t">Work report submitted</div><div class="act-s">Weeding · Dharwad East</div></div>
+            <div class="act-time">1d</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fab"><i class="ti ti-microphone"></i></div>
+
+      <!-- BOTTOM NAV -->
+      <div class="bnav">
+        <div class="bn on"><i class="ti ti-home-2"></i><span>Home</span></div>
+        <div class="bn"><i class="ti ti-map"></i><span>Properties</span></div>
+        <div class="bn"><i class="ti ti-users"></i><span>Tenants</span></div>
+        <div class="bn"><i class="ti ti-chart-bar"></i><span>Market</span></div>
+        <div class="bn"><i class="ti ti-settings"></i><span>Settings</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ───────── SPEC PANEL ───────── -->
+  <div class="spec">
+    <h1>Owner Home — redesign</h1>
+    <div class="tag">SAMPLE · for your approval</div>
+
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-wallet"></i>Portfolio header</div>
+      <p>Replaces the plain greeting with a <b>portfolio value</b> + YoY trend and a 4-up strip (<b>Lands · Leased · Vacant · Acres</b>) so the owner sees their whole estate at a glance.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-cash"></i>Revenue & payout</div>
+      <p>This-month revenue with month-over-month trend, a 6-week sparkline, and the <b>next payout</b> date — the number owners check most.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-chart-bar"></i>Key metrics</div>
+      <p>Occupancy %, active leases, <b>pending dues</b>, and avg rent/acre — operational health, colour-coded (red = needs attention).</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-bolt"></i>Action required</div>
+      <p>Consolidates approvals, <b>overdue rent</b>, <b>lease renewals</b>, and disease alerts into one prioritised list — each with a one-tap action.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-map-2"></i>Properties snapshot</div>
+      <p>Per-plot card: status chip (Leased/Vacant), tenant, crop, rent, next payment — vacant plots get a <b>“List now”</b> nudge.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-tools"></i>Tools + activity</div>
+      <p>Your existing tools (Satellite, Labor, Soil, Work report, Market, Add land) as a compact grid, plus a recent-activity feed.</p>
+    </div>
+
+    <p class="note">All values map to data your <b>useOwnerHome</b> hook already computes (totalLands, activeLeasesCount, revenue, crop activity) — extended with occupancy, dues &amp; per-property rows. Reply with changes, or say <b>“build it”</b> and I’ll implement this as the real React Native screen.</p>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GreenPlot · Farmer Home — redesign sample</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ff:'DM Sans',sans-serif;--ffs:'Instrument Serif',serif;
+  --g1:#092E18;--g2:#0F4A28;--g3:#1A6B3A;--g4:#2D9B56;--g5:#4CAF7A;--g6:#A8D8B8;--g7:#E4F4EC;
+  --a1:#5C3300;--a2:#8A5200;--a3:#B87214;--a4:#E09830;--a6:#FAE4A8;--a7:#FDF5E0;
+  --r1:#6B1212;--r2:#C02828;--r3:#E04848;--r4:#F47A7A;--r5:#FDD0D0;
+  --b1:#0B2D5C;--b2:#1A5299;--b4:#82B4F0;--b5:#D4E8FC;
+  --n1:#0D1509;--n2:#1C2E18;--n3:#3A5040;--n4:#6B8074;--n5:#9EB8A8;--n6:#C8D8CC;--n7:#E8F0EC;--n8:#F4F8F5;--n9:#FAFCFA;--white:#fff;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--float:0 6px 22px rgba(0,0,0,.12);
+}
+html,body{font-family:var(--ff);background:#0c1410;color:var(--n1);font-size:14px;line-height:1.5;padding:24px 12px}
+.wrap{max-width:760px;margin:0 auto;display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+.phone{width:300px;flex-shrink:0;background:#fff;border-radius:38px;border:9px solid var(--n2);overflow:hidden;box-shadow:var(--float);position:relative}
+.notch{height:28px;background:var(--n2);display:flex;align-items:center;justify-content:center}
+.notch-pill{width:88px;height:16px;background:var(--n1);border-radius:9px}
+.screen{height:600px;overflow-y:auto;background:var(--n8);scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+
+/* header */
+.hdr{background:linear-gradient(165deg,var(--g1),var(--g2) 55%,var(--g3));padding:14px 16px 40px;position:relative;overflow:hidden}
+.hdr-grid{position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(90deg,transparent 0 39px,#fff 39px 40px),repeating-linear-gradient(0deg,transparent 0 39px,#fff 39px 40px)}
+.hdr-top{position:relative;z-index:1;display:flex;align-items:center;gap:10px}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--g5);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;border:2px solid rgba(255,255,255,.3)}
+.hi{font-size:11px;color:rgba(255,255,255,.6)}
+.name{font-family:var(--ffs);font-size:19px;color:#fff;line-height:1.1}
+.loc{font-size:10px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:3px;margin-top:1px}
+.h-actions{margin-left:auto;display:flex;gap:7px}
+.h-btn{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;position:relative}
+.h-btn i{color:#fff;font-size:17px}
+.h-lang{font-size:11px;color:#fff;font-weight:700}
+.dot{position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--r3);border:1.5px solid var(--g2)}
+
+/* weather hero (overlaps header) */
+.weather{margin:-30px 14px 0;position:relative;z-index:2;background:#fff;border-radius:16px;box-shadow:var(--float);border:1px solid var(--n7);overflow:hidden}
+.weather-main{display:flex;align-items:center;gap:12px;padding:13px 14px}
+.w-emoji{font-size:38px}
+.w-temp{font-family:var(--ffs);font-size:30px;color:var(--g1);line-height:1}
+.w-cond{font-size:11px;font-weight:600;color:var(--n2)}
+.w-desc{font-size:10px;color:var(--g3);font-weight:600}
+.w-meta{margin-left:auto;text-align:right;font-size:10px;color:var(--n4);line-height:1.7}
+.w-fore{display:flex;border-top:1px solid var(--n7);background:var(--n9)}
+.wf{flex:1;text-align:center;padding:7px 0;border-right:1px solid var(--n7);font-size:10px;color:var(--n4)}
+.wf:last-child{border-right:none}
+.wf b{display:block;color:var(--n2);font-size:11px}
+.w-advis{display:flex;align-items:center;gap:7px;padding:8px 14px;background:var(--g7);border-top:1px solid var(--g6)}
+.w-advis i{color:var(--g3)}
+.w-advis span{font-size:11px;color:var(--g2);font-weight:600}
+
+/* farm snapshot strip */
+.snap{display:flex;gap:8px;padding:14px 14px 0}
+.snap-t{flex:1;background:#fff;border:1px solid var(--n7);border-radius:11px;padding:9px 4px;text-align:center}
+.snap-v{font-size:17px;font-weight:800;color:var(--n1)}
+.snap-l{font-size:8.5px;color:var(--n4)}
+.snap-i{font-size:14px}
+
+/* sections */
+.sec{padding:14px 14px 0}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.sec-t{font-size:13px;font-weight:700;color:var(--n2);display:flex;align-items:center;gap:6px}
+.sec-t i{color:var(--g3);font-size:16px}
+.sec-link{font-size:11px;color:var(--g3);font-weight:600}
+.card{background:#fff;border:1px solid var(--n7);border-radius:14px;box-shadow:var(--shadow)}
+
+/* AI advisory */
+.ai{background:var(--g1);border-radius:14px;padding:13px 14px;position:relative;overflow:hidden}
+.ai-glow{position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(77,175,122,.14);top:-40px;right:-30px}
+.ai-row{position:relative;z-index:1}
+.ai-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(77,175,122,.2);border:1px solid rgba(77,175,122,.4);border-radius:20px;padding:2px 9px;font-size:9px;font-weight:700;color:var(--g6);margin-bottom:7px}
+.ai-txt{font-family:var(--ffs);font-style:italic;font-size:13px;color:rgba(255,255,255,.9);line-height:1.5}
+.ai-cta{margin-top:9px;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:6px 11px;font-size:11px;color:#fff;font-weight:600}
+
+/* market ticker */
+.ticker{display:flex;gap:8px;overflow-x:auto;padding:2px;scrollbar-width:none}
+.ticker::-webkit-scrollbar{display:none}
+.tk{flex-shrink:0;min-width:96px;background:#fff;border:1px solid var(--n7);border-radius:12px;padding:9px 11px}
+.tk-c{font-size:11px;color:var(--n3);font-weight:600;display:flex;align-items:center;gap:4px}
+.tk-p{font-size:16px;font-weight:800;color:var(--n1);margin-top:3px}
+.tk-ch{font-size:10px;font-weight:700;margin-top:1px}
+.up{color:var(--g3)}.down{color:var(--r2)}
+
+/* tasks */
+.task{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;border:1px solid;margin-bottom:8px}
+.task-ic{width:34px;height:34px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:16px}
+.task-t{font-size:12px;font-weight:700}
+.task-s{font-size:10px;margin-top:1px}
+.task-btn{margin-left:auto;font-size:10px;font-weight:800;padding:6px 11px;border-radius:20px;color:#fff}
+
+/* quick actions */
+.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.qi{text-align:center}
+.qi-ic{width:46px;height:46px;border-radius:14px;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-size:21px}
+.qi-l{font-size:9.5px;font-weight:600;color:var(--n3);line-height:1.2}
+
+/* crop health */
+.crop{display:flex;gap:11px;padding:11px 12px;border-bottom:1px solid var(--n8)}
+.crop:last-child{border-bottom:none}
+.crop-img{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.crop-n{font-size:12px;font-weight:700;color:var(--n2);display:flex;align-items:center;gap:5px}
+.tagx{font-size:8px;font-weight:700;padding:1px 6px;border-radius:10px}
+.crop-s{font-size:10px;color:var(--n4);margin:3px 0 5px}
+.hbar{height:5px;background:var(--n7);border-radius:3px;overflow:hidden}
+.hfill{height:5px;border-radius:3px}
+.crop-r{margin-left:auto;text-align:right;flex-shrink:0}
+.crop-h{font-size:14px;font-weight:800}
+.crop-hd{font-size:9px;color:var(--n4)}
+
+/* listings */
+.lists{display:flex;gap:10px;overflow-x:auto;padding:2px;scrollbar-width:none}
+.lists::-webkit-scrollbar{display:none}
+.lc{flex-shrink:0;width:172px;background:#fff;border:1px solid var(--n7);border-radius:14px;overflow:hidden}
+.lc-img{height:84px;background-size:cover;background-position:center;position:relative}
+.lc-price{position:absolute;left:8px;bottom:8px;background:rgba(9,46,24,.85);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px}
+.lc-type{position:absolute;right:8px;top:8px;background:rgba(255,255,255,.92);color:var(--g2);font-size:8px;font-weight:700;padding:2px 7px;border-radius:10px}
+.lc-b{padding:9px 11px}
+.lc-t{font-size:12px;font-weight:700;color:var(--n2)}
+.lc-m{font-size:10px;color:var(--n4);margin-top:2px;display:flex;align-items:center;gap:3px}
+
+/* news */
+.news{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--n8)}
+.news:last-child{border-bottom:none}
+.news-ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.news-t{font-size:11px;font-weight:700;color:var(--n2)}
+.news-s{font-size:10px;color:var(--n4)}
+
+/* browse chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--n6);border-radius:20px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--n3)}
+
+/* search */
+.search{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--n7);border-radius:12px;padding:10px 12px;margin-bottom:9px}
+.search i{color:var(--n5)}
+.search span{font-size:12px;color:var(--n5)}
+.fchips{display:flex;gap:6px;margin-bottom:9px}
+.fc{font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--n6);color:var(--n4);background:#fff}
+.fc.on{background:var(--g2);color:#fff;border-color:var(--g2)}
+
+/* bottom nav */
+.bnav{position:sticky;bottom:0;display:flex;background:#fff;border-top:1px solid var(--n7);padding:8px 0 10px}
+.bn{flex:1;text-align:center}
+.bn i{font-size:20px;color:var(--n5)}
+.bn span{display:block;font-size:9px;color:var(--n4);margin-top:1px}
+.bn.on i{color:var(--g3)}
+.bn.on span{color:var(--g2);font-weight:600}
+.fab{position:absolute;right:14px;bottom:74px;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--g3),var(--g4));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(15,74,40,.45);z-index:5}
+.fab i{color:#fff;font-size:24px}
+
+/* spec */
+.spec{width:300px;flex-shrink:0;color:#cfe3d6}
+.spec h1{font-family:var(--ffs);font-size:24px;color:#fff;font-weight:400}
+.spec .tag{display:inline-block;font-size:10px;font-weight:600;color:var(--g6);background:rgba(77,175,122,.15);border:1px solid rgba(77,175,122,.3);border-radius:20px;padding:3px 10px;margin:8px 0 16px}
+.spec .blk{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.spec .blk-t{font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.spec .blk-t i{color:var(--g5);font-size:15px}
+.spec .blk p{font-size:11px;color:#9fb8a8;line-height:1.6}
+.spec .blk b{color:#cfe3d6;font-weight:600}
+.spec .note{font-size:10px;color:#6f8a7c;margin-top:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- PHONE -->
+  <div class="phone">
+    <div class="notch"><div class="notch-pill"></div></div>
+    <div class="screen">
+
+      <!-- HEADER -->
+      <div class="hdr">
+        <div class="hdr-grid"></div>
+        <div class="hdr-top">
+          <div class="avatar">RK</div>
+          <div>
+            <div class="hi">Namaste 🙏</div>
+            <div class="name">Rajesh Kumar</div>
+            <div class="loc"><i class="ti ti-map-pin"></i>Purnea, Bihar · Kisan</div>
+          </div>
+          <div class="h-actions">
+            <div class="h-btn"><span class="h-lang">हि</span></div>
+            <div class="h-btn"><i class="ti ti-bell"></i><div class="dot"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEATHER HERO -->
+      <div class="weather">
+        <div class="weather-main">
+          <div class="w-emoji">☀️</div>
+          <div>
+            <div class="w-temp">32°</div>
+            <div class="w-cond">Sunny &amp; Dry</div>
+            <div class="w-desc">Good day for harvesting</div>
+          </div>
+          <div class="w-meta">💧 45% humidity<br/>🌬 12 km/h wind<br/>Purnea</div>
+        </div>
+        <div class="w-fore">
+          <div class="wf">Tmrw<b>☀️ 30°</b></div>
+          <div class="wf">Wed<b>🌧 28°</b></div>
+          <div class="wf">Thu<b>🌧 26°</b></div>
+          <div class="wf">Fri<b>⛅ 29°</b></div>
+        </div>
+        <div class="w-advis"><i class="ti ti-plant-2"></i><span>Wheat ready to harvest in ~8 days · keep fields dry</span></div>
+      </div>
+
+      <!-- FARM SNAPSHOT -->
+      <div class="snap">
+        <div class="snap-t"><div class="snap-i">📄</div><div class="snap-v">2</div><div class="snap-l">Active leases</div></div>
+        <div class="snap-t"><div class="snap-i">🌾</div><div class="snap-v">7.5</div><div class="snap-l">Acres farmed</div></div>
+        <div class="snap-t"><div class="snap-i">🌱</div><div class="snap-v">3</div><div class="snap-l">Crops</div></div>
+        <div class="snap-t"><div class="snap-i">✅</div><div class="snap-v" style="color:var(--a3)">4</div><div class="snap-l">Tasks due</div></div>
+      </div>
+
+      <!-- AI ADVISORY -->
+      <div class="sec">
+        <div class="ai">
+          <div class="ai-glow"></div>
+          <div class="ai-row">
+            <div class="ai-badge">✦ FARM AI · SELL SIGNAL</div>
+            <div class="ai-txt">"Tomato prices falling ₹18 → ₹11/kg in 18 days. Sell within 4 days, or book cold storage to store 60%."</div>
+            <div class="ai-cta"><i class="ti ti-arrow-right" style="font-size:13px"></i>See AI plan &amp; storage</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MARKET TICKER -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-chart-line"></i>Mandi prices</div><div class="sec-link">All markets ›</div></div>
+        <div class="ticker">
+          <div class="tk"><div class="tk-c">🍅 Tomato</div><div class="tk-p">₹18</div><div class="tk-ch down">▼ ₹3 /kg</div></div>
+          <div class="tk"><div class="tk-c">🧅 Onion</div><div class="tk-p">₹24</div><div class="tk-ch up">▲ ₹2 /kg</div></div>
+          <div class="tk"><div class="tk-c">🌶 Chilli</div><div class="tk-p">₹96</div><div class="tk-ch up">▲ ₹4 /kg</div></div>
+          <div class="tk"><div class="tk-c">🌾 Wheat</div><div class="tk-p">₹22</div><div class="tk-ch up">▲ ₹1 /kg</div></div>
+        </div>
+      </div>
+
+      <!-- TASKS / ACTION REQUIRED -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-checklist"></i>Today's tasks</div><div class="sec-link">View all</div></div>
+        <div class="task" style="background:var(--b5);border-color:var(--b4)">
+          <div class="task-ic" style="color:var(--b2)"><i class="ti ti-droplet"></i></div>
+          <div><div class="task-t" style="color:var(--b1)">Irrigation due · North plot</div><div class="task-s" style="color:var(--b2)">Best before 9 AM</div></div>
+          <div class="task-btn" style="background:var(--b2)">Schedule</div>
+        </div>
+        <div class="task" style="background:var(--a7);border-color:var(--a6)">
+          <div class="task-ic" style="color:var(--a3)"><i class="ti ti-users"></i></div>
+          <div><div class="task-t" style="color:var(--a1)">Confirm 3 laborers · Harvest</div><div class="task-s" style="color:var(--a2)">Applied for tomorrow</div></div>
+          <div class="task-btn" style="background:var(--a3)">Confirm</div>
+        </div>
+        <div class="task" style="background:var(--r5);border-color:var(--r4)">
+          <div class="task-ic" style="color:var(--r2)"><i class="ti ti-file-alert"></i></div>
+          <div><div class="task-t" style="color:var(--r1)">Lease expiring · Suresh</div><div class="task-s" style="color:var(--r2)">In 20 days · renew now</div></div>
+          <div class="task-btn" style="background:var(--r2)">Renew</div>
+        </div>
+        <div class="task" style="background:var(--g7);border-color:var(--g6)">
+          <div class="task-ic" style="color:var(--g3)"><i class="ti ti-flask"></i></div>
+          <div><div class="task-t" style="color:var(--g1)">Soil test result ready</div><div class="task-s" style="color:var(--g3)">AgriLab · pH &amp; NPK report</div></div>
+          <div class="task-btn" style="background:var(--g3)">View</div>
+        </div>
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-bolt"></i>Quick actions</div></div>
+        <div class="qa">
+          <div class="qi"><div class="qi-ic" style="background:var(--g7);color:var(--g3)"><i class="ti ti-seeding"></i></div><div class="qi-l">Add Crop</div></div>
+          <div class="qi"><div class="qi-ic" style="background:var(--b5);color:var(--b2)"><i class="ti ti-clipboard-plus"></i></div><div class="qi-l">Create Work</div></div>
+          <div class="qi"><div class="qi-ic" style="background:var(--a7);color:var(--a3)"><i class="ti ti-users-group"></i></div><div class="qi-l">Hire Labor</div></div>
+          <div class="qi"><div class="qi-ic" style="background:#EDE8FD;color:#4B2EA8"><i class="ti ti-file-check"></i></div><div class="qi-l">Lease Status</div></div>
+          <div class="qi"><div class="qi-ic" style="background:var(--g7);color:var(--g2)"><i class="ti ti-satellite"></i></div><div class="qi-l">Satellite</div></div>
+          <div class="qi"><div class="qi-ic" style="background:var(--a7);color:var(--a3)"><i class="ti ti-test-pipe"></i></div><div class="qi-l">Soil Test</div></div>
+          <div class="qi"><div class="qi-ic" style="background:var(--g7);color:var(--g3)"><i class="ti ti-chart-bar"></i></div><div class="qi-l">Market</div></div>
+          <div class="qi"><div class="qi-ic" style="background:var(--b5);color:var(--b2)"><i class="ti ti-microphone"></i></div><div class="qi-l">AI Assistant</div></div>
+        </div>
+      </div>
+
+      <!-- MY CROPS HEALTH -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-plant"></i>My crops · health</div><div class="sec-link">All ›</div></div>
+        <div class="card">
+          <div class="crop">
+            <div class="crop-img" style="background:var(--g7)">🌾</div>
+            <div style="flex:1">
+              <div class="crop-n">Wheat · North plot <span class="tagx" style="background:var(--g7);color:var(--g2)">Healthy</span></div>
+              <div class="crop-s">Flowering stage · harvest in 8 days</div>
+              <div class="hbar"><div class="hfill" style="width:78%;background:var(--g4)"></div></div>
+            </div>
+            <div class="crop-r"><div class="crop-h" style="color:var(--g3)">78%</div><div class="crop-hd">health</div></div>
+          </div>
+          <div class="crop">
+            <div class="crop-img" style="background:var(--r5)">🍅</div>
+            <div style="flex:1">
+              <div class="crop-n">Tomato · East plot <span class="tagx" style="background:var(--r5);color:var(--r2)">Disease risk</span></div>
+              <div class="crop-s">Fruiting · early blight detected</div>
+              <div class="hbar"><div class="hfill" style="width:62%;background:var(--a4)"></div></div>
+            </div>
+            <div class="crop-r"><div class="crop-h" style="color:var(--a3)">62%</div><div class="crop-hd">health</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FIND LAND -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-map-search"></i>Find land to lease</div><div class="sec-link">View all</div></div>
+        <div class="search"><i class="ti ti-search"></i><span>Search land by village, crop, price…</span></div>
+        <div class="fchips"><div class="fc on">Nearby</div><div class="fc">Purnea</div><div class="fc">Katihar</div></div>
+        <div class="lists">
+          <div class="lc">
+            <div class="lc-img" style="background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400')">
+              <div class="lc-type">Fixed Rent</div><div class="lc-price">₹12k/yr</div>
+            </div>
+            <div class="lc-b"><div class="lc-t">Fertile Wheat Land</div><div class="lc-m"><i class="ti ti-map-pin" style="font-size:11px"></i>Kasba · 5 ac · 2km</div></div>
+          </div>
+          <div class="lc">
+            <div class="lc-img" style="background-image:url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400')">
+              <div class="lc-type">Share crop</div><div class="lc-price">₹9k/yr</div>
+            </div>
+            <div class="lc-b"><div class="lc-t">Paddy Land</div><div class="lc-m"><i class="ti ti-map-pin" style="font-size:11px"></i>Banmankhi · 2.5 ac · 6km</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCHEMES & NEWS -->
+      <div class="sec">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-news"></i>Schemes &amp; news</div><div class="sec-link">More</div></div>
+        <div class="card" style="padding:2px 12px">
+          <div class="news">
+            <div class="news-ic" style="background:var(--b5);color:var(--b2)"><i class="ti ti-building-bank"></i></div>
+            <div style="flex:1"><div class="news-t">New Govt. Subsidy Scheme</div><div class="news-s">50% subsidy on solar pumps for farmers</div></div>
+            <i class="ti ti-chevron-right" style="color:var(--n5)"></i>
+          </div>
+          <div class="news">
+            <div class="news-ic" style="background:var(--g7);color:var(--g3)"><i class="ti ti-trending-up"></i></div>
+            <div style="flex:1"><div class="news-t">Crop Price Alert</div><div class="news-s">Wheat prices expected to rise next week</div></div>
+            <i class="ti ti-chevron-right" style="color:var(--n5)"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- BROWSE BY CROP -->
+      <div class="sec" style="padding-bottom:16px">
+        <div class="sec-h"><div class="sec-t"><i class="ti ti-leaf"></i>Browse by crop</div></div>
+        <div class="chips">
+          <div class="chip">🌾 Wheat</div><div class="chip">🍚 Rice</div><div class="chip">🥬 Vegetables</div>
+          <div class="chip">🍊 Orchard</div><div class="chip">🌶 Chilli</div><div class="chip">☁️ Cotton</div>
+        </div>
+      </div>
+
+      <div class="fab"><i class="ti ti-microphone"></i></div>
+
+      <!-- BOTTOM NAV -->
+      <div class="bnav">
+        <div class="bn on"><i class="ti ti-home-2"></i><span>Home</span></div>
+        <div class="bn"><i class="ti ti-file-text"></i><span>My Leases</span></div>
+        <div class="bn"><i class="ti ti-leaf"></i><span>My Crops</span></div>
+        <div class="bn"><i class="ti ti-chart-bar"></i><span>Market</span></div>
+        <div class="bn"><i class="ti ti-layout-grid"></i><span>Hub</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SPEC -->
+  <div class="spec">
+    <h1>Farmer Home — redesign</h1>
+    <div class="tag">SAMPLE · for your approval</div>
+
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-cloud"></i>Weather + advisory hero</div>
+      <p>Live weather card with a 4-day forecast and an <b>actionable farming tip</b> ("Wheat ready in ~8 days") — overlapping the header for a premium look.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-layout-dashboard"></i>Farm snapshot</div>
+      <p>4-up strip: <b>Active leases · Acres farmed · Crops · Tasks due</b> — the farmer's whole operation at a glance.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-sparkles"></i>Farm AI sell-signal</div>
+      <p>Ties straight into the <b>Market module</b>: price-crash advice + one-tap route to the AI plan &amp; cold-storage booking.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-chart-line"></i>Mandi price ticker</div>
+      <p>Scrollable live crop prices with trend — taps open the full Market Intelligence screens.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-checklist"></i>Today's tasks</div>
+      <p>Irrigation, <b>labor confirmation</b>, lease renewal, soil-test result — each a one-tap action into the right screen.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-plant"></i>Crop health</div>
+      <p>Per-plot growth stage + <b>health %</b> with disease-risk flags — a new, demo-ready feature.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><i class="ti ti-map-search"></i>Find land + schemes</div>
+      <p>Search, nearby filters, featured listings (real data), plus govt schemes &amp; news and browse-by-crop.</p>
+    </div>
+
+    <p class="note">Every tile, task, ticker and card routes to a real screen (Market, Labor, Soil, My Leases, Farm details, AI assistant…). Reply with changes, or say <b>“build it”</b> and I’ll implement it as the real React Native screen with mock data + full end-to-end navigation, like the Owner Home.</p>
+  </div>
+
+</div>
+</body>
+</html>

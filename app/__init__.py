@@ -1,0 +1,1 @@
+"""GreenPlot how-to assistant."""
